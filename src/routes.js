@@ -1,16 +1,34 @@
 import React from 'react'
 import { Router, Route, IndexRoute, Link, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
 
-import App from './views/app';
-import Hello from './views/hello';
-import World from './views/world';
+import App from './views/app'
+import Simulation from './views/simulation'
+import World from './views/world'
+
+import createStore from './store/create'
+import { changeBaseDataGrossPrice } from './actions/index'
+
+const store = createStore()
+
+console.log(store.getState())
+
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+)
+
+store.dispatch(changeBaseDataGrossPrice(35))
+
+unsubscribe()
 
 export default (
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Hello}/>
-      <Route path="hello" component={Hello}/>
-      <Route path="world" component={World}/>
-    </Route>
-  </Router>
-);
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Simulation}/>
+        <Route path="simulation" component={Simulation}/>
+        <Route path="world" component={World}/>
+      </Route>
+    </Router>
+  </Provider>
+)

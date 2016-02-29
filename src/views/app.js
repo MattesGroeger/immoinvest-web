@@ -8,7 +8,7 @@ export default class App extends React.Component {
         <div>
           <h1>App</h1>
           <ul>
-            <li><Link to="/hello">Hello</Link></li>
+            <li><Link to="/simulation">Simulation</Link></li>
             <li><Link to="/world">World</Link></li>
           </ul>
         </div>

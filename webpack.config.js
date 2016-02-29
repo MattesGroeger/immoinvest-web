@@ -1,7 +1,9 @@
+var webpack = require('webpack');
+
 module.exports = {
-    entry: "./main.js",
+    entry: "./src/main.js",
     output: {
-        path: __dirname,
+        path: "./public",
         filename: "bundle.js"
     },
     module: {
@@ -15,5 +17,6 @@ module.exports = {
             }
           }
         ]
-    }
+    },
+    plugins: []
 };
