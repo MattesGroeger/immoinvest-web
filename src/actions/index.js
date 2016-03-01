@@ -1,9 +1,10 @@
-export const CHANGE_BASE_DATA_GROSS_PRICE = 'CHANGE_BASE_DATA_GROSS_PRICE'
+export const CHANGE_BASE_DATA = 'CHANGE_BASE_DATA'
 
-export const changeBaseDataGrossPrice = (grossPrice) => {
+export const changeBaseData = (property, value) => {
   return {
-    type: CHANGE_BASE_DATA_GROSS_PRICE,
-    grossPrice: grossPrice
+    type: CHANGE_BASE_DATA,
+    property: property,
+    value: value
   }
 }
 

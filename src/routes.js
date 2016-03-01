@@ -11,16 +11,6 @@ import { changeBaseDataGrossPrice } from './actions/index'
 
 const store = createStore()
 
-console.log(store.getState())
-
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
-)
-
-store.dispatch(changeBaseDataGrossPrice(35))
-
-unsubscribe()
-
 export default (
   <Provider store={store}>
     <Router history={browserHistory}>

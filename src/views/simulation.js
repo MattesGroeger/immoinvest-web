@@ -9,7 +9,7 @@ import BaseDataForm from './simulation/baseData'
 
 class TableView extends React.Component {
   render() {
-    return (<div>TODO</div>)
+    return (<div>Coming Soon</div>)
   }
 }
 
@@ -17,11 +17,11 @@ export default class Simulation extends React.Component {
   render() {
     return (
       <div>
-        <h2>Graph</h2>
+        <h2>Diagramm/Berechnet</h2>
         <GraphView/>
-        <h2>Base Data</h2>
+        <h2>Basisdaten</h2>
         <BaseDataForm/>
-        <h2>Table</h2>
+        <h2>Tabelle</h2>
         <TableView/>
       </div>)
   }

@@ -2,21 +2,19 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { BaseData } from '../../shapes/index'
 
-import { changeBaseDataGrossPrice } from '../../actions/index'
+import { changeBaseData } from '../../actions/index'
 
 class BaseDataForm extends React.Component {
 
   render() {
-    const { baseData, changeBaseDataGrossPrice } = this.props
-    // <p><input type="text" value={baseData.grossPrice}/> Brutto Kaufpreis</p>
+    const { baseData, changeBaseData } = this.props
     return (
       <form>
-        <p><input type="text"/> Postleitzahl</p>
-        <p><input type="text"/> Quadratmeter</p>
-        <p><input type="text" onChange={(event) => changeBaseDataGrossPrice(parseInt(event.target.value))}/> Brutto Kaufpreis</p>
-        <p><input type="text"/> Kaltmiete/Monat</p>
-        <p><input type="text"/> Hausgeld/Monat</p>
-        <p><input type="text"/> Courtage in %</p>
+        <p><input type="text" onChange={(event) => changeBaseData("squareMeters", parseFloat(event.target.value.replace(",",".")))}/> Quadratmeter</p>
+        <p><input type="text" onChange={(event) => changeBaseData("grossPrice", parseFloat(event.target.value.replace(",",".")))}/> Brutto Kaufpreis</p>
+        <p><input type="text" onChange={(event) => changeBaseData("baseRent", parseFloat(event.target.value.replace(",",".")))}/> Kaltmiete/Monat</p>
+        <p><input type="text" onChange={(event) => changeBaseData("HOAFee", parseFloat(event.target.value.replace(",",".")))}/> Hausgeld/Monat</p>
+        <p><input type="text" onChange={(event) => changeBaseData("commission", parseFloat(event.target.value.replace(",","."))/100)} defaultValue="0"/> Courtage in %</p>
       </form>
     )
   }
@@ -28,7 +26,7 @@ class BaseDataForm extends React.Component {
 
 BaseDataForm.propTypes = {
   baseData: BaseData.isRequired,
-  changeBaseDataGrossPrice: PropTypes.func.isRequired
+  changeBaseData: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -39,5 +37,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { changeBaseDataGrossPrice: changeBaseDataGrossPrice }
+  { changeBaseData: changeBaseData }
 )(BaseDataForm)
