@@ -1,30 +1,39 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { BaseData } from '../../shapes/index'
+
+import { Prices } from '../../shapes/index'
 
 export default class GraphView extends React.Component {
   render() {
-    const { baseData } = this.props
+    const { purchasingPriceFactor, incidentalCosts, incidentalCostsPercent, netPricePerSquareMeter, rentPerSquareMeter } = this.props
     return (
       <div>
         <ul>
-          <li>Kaufpreisfaktor: <strong>{(baseData.purchasingPriceFactor || 0).toFixed(2)}</strong> ({"<"} 15-20)</li>
-          <li>Nebenkosten: <strong>{(baseData.incidentalCosts || 0).toFixed(2)}</strong> € ({((baseData.incidentalCosts/baseData.grossPrice || 0)*100).toFixed(0)} %)</li>
-          <li>Netto-Kaufpreis/m²: <strong>{(baseData.netPricePerSquareMeter || 0).toFixed(2)}</strong> €</li>
-          <li>Miete/m²: <strong>{(baseData.rentPerSquareMeter || 0).toFixed(2)}</strong> €</li>
+          <li>Kaufpreisfaktor: <strong>{purchasingPriceFactor}</strong> ({"<"} 15-20)</li>
+          <li>Nebenkosten: <strong>{incidentalCosts}</strong> € ({incidentalCostsPercent} %)</li>
+          <li>Netto-Kaufpreis/m²: <strong>{netPricePerSquareMeter}</strong> €</li>
+          <li>Miete/m²: <strong>{rentPerSquareMeter}</strong> €</li>
         </ul>
       </div>
     )
   }
 }
 
-GraphView.propTypes = {
-  baseData: BaseData.isRequired
-}
+GraphView.propTypes = Prices.isRequired
 
 function mapStateToProps(state) {
+  const {
+    purchasingPriceFactor,
+    incidentalCosts,
+    grossPrice,
+    netPricePerSquareMeter,
+    rentPerSquareMeter } = state.prices
   return {
-    baseData: state.baseData
+    purchasingPriceFactor: (purchasingPriceFactor || 0).toFixed(2),
+    incidentalCosts: (incidentalCosts || 0).toFixed(2),
+    incidentalCostsPercent: ((incidentalCosts/grossPrice || 0)*100).toFixed(0),
+    netPricePerSquareMeter: (netPricePerSquareMeter || 0).toFixed(2),
+    rentPerSquareMeter: (rentPerSquareMeter || 0).toFixed(2)
   }
 }
 

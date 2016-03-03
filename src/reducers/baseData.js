@@ -1,5 +1,6 @@
-import { CHANGE_BASE_DATA } from '../actions/index'
 import update from 'react-addons-update'
+
+import { CHANGE_BASE_DATA } from '../actions/index'
 
 const initialState = {
   id: 0,
@@ -11,36 +12,6 @@ const initialState = {
   realEstateTransferTaxPercent: 0.06, // 6,0%
   notaryCostPercent: 0.015, // 1,5%
   landRegisterCostPercent: 0.005, // 0,5%
-}
-
-const updateRentPerSquareMeter = (state) => {
-  return update(state, {
-    rentPerSquareMeter: { $set: state.squareMeters > 0 ? state.baseRent / state.squareMeters : 0 }
-  })
-}
-
-const updatePricePerSquareMeter = (state) => {
-  return update(state, {
-    netPricePerSquareMeter: { $set: state.squareMeters > 0 ? (state.grossPrice + state.incidentalCosts) / state.squareMeters : 0 }
-  })
-}
-
-const updateIncidentalCosts = (state) => {
-  let commission = state.grossPrice * state.commission
-  let notary = state.grossPrice * state.notaryCostPercent
-  let landRegister = state.grossPrice * state.landRegisterCostPercent
-  let transferTax = state.grossPrice * state.realEstateTransferTaxPercent
-  let incidentalCosts = commission + notary + landRegister + transferTax
-  return update(state, {
-    incidentalCosts: { $set: incidentalCosts },
-    totalPrice: { $set: state.grossPrice + incidentalCosts }
-  })
-}
-
-const updatePurchasingPriceFactor = (state) => {
-  return update(state, {
-    purchasingPriceFactor: { $set: state.baseRent > 0 ? state.grossPrice / (state.baseRent * 12) : 0 }
-  })
 }
 
 const updateBaseData = (state, action) => {
@@ -73,12 +44,7 @@ const updateBaseData = (state, action) => {
 const baseData = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_BASE_DATA:
-      var state = updateBaseData(state, action)
-      state = updateRentPerSquareMeter(state)
-      state = updateIncidentalCosts(state)
-      state = updatePricePerSquareMeter(state)
-      state = updatePurchasingPriceFactor(state)
-      return state
+      return updateBaseData(state, action)
     default:
       return state
   }

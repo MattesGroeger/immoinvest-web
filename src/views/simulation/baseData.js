@@ -1,41 +1,40 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { BaseData } from '../../shapes/index'
 
 import { changeBaseData } from '../../actions/index'
 
 class BaseDataForm extends React.Component {
 
   render() {
-    const { baseData, changeBaseData } = this.props
     return (
       <form>
-        <p><input type="text" onChange={(event) => changeBaseData("squareMeters", parseFloat(event.target.value.replace(",",".")))}/> Quadratmeter</p>
-        <p><input type="text" onChange={(event) => changeBaseData("grossPrice", parseFloat(event.target.value.replace(",",".")))}/> Brutto Kaufpreis</p>
-        <p><input type="text" onChange={(event) => changeBaseData("baseRent", parseFloat(event.target.value.replace(",",".")))}/> Kaltmiete/Monat</p>
-        <p><input type="text" onChange={(event) => changeBaseData("HOAFee", parseFloat(event.target.value.replace(",",".")))}/> Hausgeld/Monat</p>
-        <p><input type="text" onChange={(event) => changeBaseData("commission", parseFloat(event.target.value.replace(",","."))/100)} defaultValue="0"/> Courtage in %</p>
+        <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "squareMeters")}/> Quadratmeter</p>
+        <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "grossPrice")}/> Brutto Kaufpreis</p>
+        <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "baseRent")}/> Kaltmiete/Monat</p>
+        <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "HOAFee")}/> Hausgeld/Monat</p>
+        <p><input type="text" onChange={this.updatePercentValue.bind(this, "commission")} defaultValue="0"/> Courtage in %</p>
       </form>
-    )
+    );
   }
 
-  // handleGrossPriceChange(event) {
-  //   this.props.dispatch(changeBaseDataGrossPrice(event.target.value))
-  // }
+  updateCurrencyValue(property, event) {
+    this.props.changeBaseData(property, parseFloat(event.target.value.replace(",",".")))
+  }
+
+  updatePercentValue(property, event) {
+    this.props.changeBaseData(property, parseFloat(event.target.value.replace(",","."))/100)
+  }
 }
 
 BaseDataForm.propTypes = {
-  baseData: BaseData.isRequired,
   changeBaseData: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
-  return {
-    baseData: state.baseData
-  }
+  return { }
 }
 
 export default connect(
   mapStateToProps,
-  { changeBaseData: changeBaseData }
+  { changeBaseData }
 )(BaseDataForm)

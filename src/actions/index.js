@@ -1,6 +1,7 @@
 export const CHANGE_BASE_DATA = 'CHANGE_BASE_DATA'
+export const CALCULATE_PRICES = 'CALCULATE_PRICES'
 
-export const changeBaseData = (property, value) => {
+function setBaseData(property, value) {
   return {
     type: CHANGE_BASE_DATA,
     property: property,
@@ -8,15 +9,16 @@ export const changeBaseData = (property, value) => {
   }
 }
 
-// export const changeBaseData = (baseData) => {
-//   return {
-//     type: "CHANGE_BASE_DATA",
-//     id: baseData.id,
-//     zipCode: baseData.zipCode,
-//     squareMeters: baseData.squareMeters,
-//     grossPrice: baseData.grossPrice,
-//     baseRent: baseData.baseRent,
-//     HOAFee: baseData.HOAFee,
-//     commission: baseData.commission
-//   }
-// }
+function calculatePrices(baseData) {
+  return {
+    type: CALCULATE_PRICES,
+    baseData: baseData
+  }
+}
+
+export function changeBaseData(property, value) {
+  return (dispatch, getState) => {
+    dispatch(setBaseData(property, value))
+    dispatch(calculatePrices(getState().baseData))
+  }
+}
