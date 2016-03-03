@@ -25,13 +25,14 @@ function mapStateToProps(state) {
   const {
     purchasingPriceFactor,
     incidentalCosts,
+    incidentalCostsPercent,
     grossPrice,
     netPricePerSquareMeter,
     rentPerSquareMeter } = state.prices
   return {
     purchasingPriceFactor: (purchasingPriceFactor || 0).toFixed(2),
     incidentalCosts: (incidentalCosts || 0).toFixed(2),
-    incidentalCostsPercent: ((incidentalCosts/grossPrice || 0)*100).toFixed(0),
+    incidentalCostsPercent: ((incidentalCostsPercent || 0) * 100).toFixed(0),
     netPricePerSquareMeter: (netPricePerSquareMeter || 0).toFixed(2),
     rentPerSquareMeter: (rentPerSquareMeter || 0).toFixed(2)
   }
