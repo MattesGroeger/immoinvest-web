@@ -15,42 +15,9 @@ const initialState = {
 }
 
 const updateBaseData = (state, action) => {
-  switch (action.property) {
-    case "squareMeters":
-      return update(state, {
-        squareMeters: { $set: action.value }
-      })
-    case "grossPrice":
-      return update(state, {
-        grossPrice: { $set: action.value }
-      })
-    case "baseRent":
-      return update(state, {
-        baseRent: { $set: action.value}
-      })
-    case "HOAFee":
-      return update(state, {
-        HOAFee: { $set: action.value}
-      })
-    case "commission":
-      return update(state, {
-        commission: { $set: action.value}
-      })
-    case "realEstateTransferTaxPercent":
-      return update(state, {
-        realEstateTransferTaxPercent: { $set: action.value}
-      })
-    case "notaryCostPercent":
-      return update(state, {
-        notaryCostPercent: { $set: action.value}
-      })
-    case "landRegisterCostPercent":
-      return update(state, {
-        landRegisterCostPercent: { $set: action.value}
-      })
-    default:
-      return state
-  }
+  let obj = {}
+  obj[action.property] = { $set: action.value }
+  return update(state, obj)
 }
 
 const baseData = (state = initialState, action) => {

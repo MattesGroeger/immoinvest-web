@@ -25,13 +25,6 @@ export default class Simulation extends React.Component {
         <BaseDataForm/>
         <h3>Nebenkosten</h3>
         <IncidentalCostsForm/>
-        <h3>Wertentwicklung</h3>
-        <ul>
-          <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
-          <li>Pauschale für Mietausfall</li>
-          <li>Geschätzte Mietsteigerung/Jahr in %</li>
-          <li>Geschätzte Kostensteigerung/Jahr in %</li>
-        </ul>
         <h3>Finanzierung</h3>
         <ul>
           <li>Eigenkapital in % oder €</li>
@@ -43,10 +36,20 @@ export default class Simulation extends React.Component {
         <h3>Steuern</h3>
         <ul>
           <li>Grundstücksanteil in % oder €</li>
+          <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
           <li>Alleinstehen/Verheirated</li>
-          <li>Zu versteuerndes Einkommen in €</li>
+          <li>Zu versteuerndes Einkommen in € (oder persönlicher Steuersatz in %?)</li>
         </ul>
-        <h3>Rendite</h3>
+        <h3>Wertentwicklung</h3>
+        <ul>
+          <li>Anlagehorizont in Jahren</li>
+          <li>Pauschale für Mietausfall</li>
+          <li>Geschätzte Mietsteigerung/Jahr in %</li>
+          <li>Geschätzte Kostensteigerung/Jahr in %</li>
+          <li>Inflation pro Jahr in %</li>
+          <li>Wertentwicklung Bodenanteil pro Jahr in %</li>
+          <li>Wertentwicklung Wohnung pro Jahr in %</li>
+        </ul>
         <h2>Tabelle</h2>
         <TableView/>
       </div>)
