@@ -20,10 +20,33 @@ export default class Simulation extends React.Component {
       <div>
         <h2>Diagramm/Berechnet</h2>
         <GraphView/>
-        <h2>Basisdaten</h2>
+        <h2>Parameter</h2>
+        <h3>Kerndaten</h3>
         <BaseDataForm/>
-        <h2>Nebenkosten</h2>
+        <h3>Nebenkosten</h3>
         <IncidentalCostsForm/>
+        <h3>Wertentwicklung</h3>
+        <ul>
+          <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
+          <li>Pauschale für Mietausfall</li>
+          <li>Geschätzte Mietsteigerung/Jahr in %</li>
+          <li>Geschätzte Kostensteigerung/Jahr in %</li>
+        </ul>
+        <h3>Finanzierung</h3>
+        <ul>
+          <li>Eigenkapital in % oder €</li>
+          <li>Zinsbindung in Jahren</li>
+          <li>Zinssatz in %</li>
+          <li>Tilgungssatz in %</li>
+          <li>Anschlusszinssatz in %</li>
+        </ul>
+        <h3>Steuern</h3>
+        <ul>
+          <li>Grundstücksanteil in % oder €</li>
+          <li>Alleinstehen/Verheirated</li>
+          <li>Zu versteuerndes Einkommen in €</li>
+        </ul>
+        <h3>Rendite</h3>
         <h2>Tabelle</h2>
         <TableView/>
       </div>)
