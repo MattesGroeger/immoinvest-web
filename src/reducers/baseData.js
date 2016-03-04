@@ -36,6 +36,18 @@ const updateBaseData = (state, action) => {
       return update(state, {
         commission: { $set: action.value}
       })
+    case "realEstateTransferTaxPercent":
+      return update(state, {
+        realEstateTransferTaxPercent: { $set: action.value}
+      })
+    case "notaryCostPercent":
+      return update(state, {
+        notaryCostPercent: { $set: action.value}
+      })
+    case "landRegisterCostPercent":
+      return update(state, {
+        landRegisterCostPercent: { $set: action.value}
+      })
     default:
       return state
   }

@@ -6,6 +6,7 @@ import { changeBaseDataGrossPrice } from '../actions/index'
 
 import GraphView from './simulation/graph'
 import BaseDataForm from './simulation/baseData'
+import IncidentalCostsForm from './simulation/incidentalCosts'
 
 class TableView extends React.Component {
   render() {
@@ -21,6 +22,8 @@ export default class Simulation extends React.Component {
         <GraphView/>
         <h2>Basisdaten</h2>
         <BaseDataForm/>
+        <h2>Nebenkosten</h2>
+        <IncidentalCostsForm/>
         <h2>Tabelle</h2>
         <TableView/>
       </div>)
