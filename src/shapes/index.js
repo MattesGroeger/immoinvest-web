@@ -2,18 +2,24 @@ import { PropTypes } from 'react'
 
 // user defined
 export const BaseData = PropTypes.shape({
-  // base data:
-  id: PropTypes.number.isRequired,
+  // core data
   squareMeters: PropTypes.number, // Quadratmeter
   grossPrice: PropTypes.number, // Brutto Kaufpreis
   baseRent: PropTypes.number, // Kaltmiete
   HOAFee: PropTypes.number, // homeowners' association fee = Hausgeld
-  commission: PropTypes.number, // Courtage
 
-  // parameters:
-  realEstateTransferTaxPercent: PropTypes.number, // Grunderwerbsteuer
-  notaryCostPercent: PropTypes.number, // Anteil Notarkosten
-  landRegisterCostPercent: PropTypes.number, // Anteil Grundbuch-Eintrag
+  // incidenialCosts parameters
+  commissionPercent: PropTypes.number, // Courtage %
+  realEstateTransferTaxPercent: PropTypes.number, // Grunderwerbsteuer %
+  notaryCostPercent: PropTypes.number, // Notarkosten %
+  landRegisterCostPercent: PropTypes.number, // Grundbuch-Eintrag %
+
+  // financing
+  equityPercent: PropTypes.number, // Eigenkapital %
+  fixedBorrowingRateYears: PropTypes.number, // Sollzinsbindung in Jahren
+  borrowingRatePercent: PropTypes.number, // Sollzins %
+  amortizationRatePercent: PropTypes.number, // Tilgungsrate %
+  followUpBorrowingRatePercent: PropTypes.number, // Anschlusszinssatz
 })
 
 // calculated
@@ -24,4 +30,6 @@ export const Prices = PropTypes.shape({
   netPricePerSquareMeter: PropTypes.string.isRequired, // Nettokaufpreis/Quadratmeter
   rentPerSquareMeter: PropTypes.string.isRequired, // Miete/Quadratmeter
   totalPrice: PropTypes.number, // Netto Kaufpreis
+  equity: PropTypes.number, // Eigenkapital
+  loan: PropTypes.number, // Darlehen
 })

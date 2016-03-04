@@ -11,7 +11,7 @@ class IncidentalCostsForm extends React.Component {
     const { commissionPercent, commission, realEstateTransferTaxPercent, realEstateTransferTax, notaryCostPercent, notaryCost, landRegisterCostPercent, landRegisterCost } = this.props
     return (
       <form>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "commission")} defaultValue={commissionPercent}/> % Courtage (<CalculatedCurrencyValue value={commission} invert={true}/>)</p>
+        <p><input type="text" onChange={this.updatePercentValue.bind(this, "commissionPercent")} defaultValue={commissionPercent}/> % Courtage (<CalculatedCurrencyValue value={commission} invert={true}/>)</p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "realEstateTransferTaxPercent")} defaultValue={realEstateTransferTaxPercent}/> % Grunderwerbsteuer (<CalculatedCurrencyValue value={realEstateTransferTax} invert={true}/>)</p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "notaryCostPercent")} defaultValue={notaryCostPercent}/> % Notarkosten (<CalculatedCurrencyValue value={notaryCost} invert={true}/>)</p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "landRegisterCostPercent")} defaultValue={landRegisterCostPercent}/> % Grundbuch-Eintrag (<CalculatedCurrencyValue value={landRegisterCost} invert={true}/>)</p>
@@ -37,10 +37,10 @@ IncidentalCostsForm.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { commission, realEstateTransferTaxPercent, notaryCostPercent, landRegisterCostPercent, grossPrice } = state.baseData
+  const { commissionPercent, realEstateTransferTaxPercent, notaryCostPercent, landRegisterCostPercent, grossPrice } = state.baseData
   return {
-    commissionPercent: (commission * 100).toFixed(1).replace(".",","),
-    commission: grossPrice * commission,
+    commissionPercent: (commissionPercent * 100).toFixed(1).replace(".",","),
+    commission: grossPrice * commissionPercent,
     realEstateTransferTaxPercent: (realEstateTransferTaxPercent * 100).toFixed(1).replace(".",","),
     realEstateTransferTax: grossPrice * realEstateTransferTaxPercent,
     notaryCostPercent: (notaryCostPercent * 100).toFixed(1).replace(".",","),

@@ -3,15 +3,20 @@ import update from 'react-addons-update'
 import { CHANGE_BASE_DATA } from '../actions/index'
 
 const initialState = {
-  id: 0,
   squareMeters: 0,
   grossPrice: 0,
   baseRent: 0,
-  commission: 0,
 
-  realEstateTransferTaxPercent: 0.06, // 6,0%
-  notaryCostPercent: 0.015, // 1,5%
-  landRegisterCostPercent: 0.005, // 0,5%
+  commissionPercent: 0,
+  realEstateTransferTaxPercent: 0.06,
+  notaryCostPercent: 0.015,
+  landRegisterCostPercent: 0.005,
+
+  equityPercent: 0.2,
+  fixedBorrowingRateYears: 15,
+  borrowingRatePercent: 0.025,
+  amortizationRatePercent: 0.02,
+  followUpBorrowingRatePercent: 0.06,
 }
 
 const updateBaseData = (state, action) => {

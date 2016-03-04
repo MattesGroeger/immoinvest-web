@@ -7,6 +7,7 @@ import { changeBaseDataGrossPrice } from '../actions/index'
 import GraphView from './simulation/graph'
 import BaseDataForm from './simulation/baseData'
 import IncidentalCostsForm from './simulation/incidentalCosts'
+import FinancingForm from './simulation/financing'
 
 class TableView extends React.Component {
   render() {
@@ -26,13 +27,7 @@ export default class Simulation extends React.Component {
         <h3>Nebenkosten</h3>
         <IncidentalCostsForm/>
         <h3>Finanzierung</h3>
-        <ul>
-          <li>Eigenkapital in % oder €</li>
-          <li>Zinsbindung in Jahren</li>
-          <li>Zinssatz in %</li>
-          <li>Tilgungssatz in %</li>
-          <li>Anschlusszinssatz in %</li>
-        </ul>
+        <FinancingForm/>
         <h3>Steuern</h3>
         <ul>
           <li>Grundstücksanteil in % oder €</li>

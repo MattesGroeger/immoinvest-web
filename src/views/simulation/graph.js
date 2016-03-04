@@ -7,7 +7,7 @@ import { CalculatedFactorValue, CalculatedCurrencyValue, CalculatedPercentValue 
 export default class GraphView extends React.Component {
 
   render() {
-    const { purchasingPriceFactor, incidentalCosts, incidentalCostsPercent, netPricePerSquareMeter, rentPerSquareMeter } = this.props
+    const { purchasingPriceFactor, incidentalCosts, incidentalCostsPercent, netPricePerSquareMeter, rentPerSquareMeter, equity, loan } = this.props
     return (
       <div>
         <ul>
@@ -15,6 +15,8 @@ export default class GraphView extends React.Component {
           <li>Nebenkosten: <strong><CalculatedCurrencyValue value={incidentalCosts} invert={true}/></strong> (<CalculatedPercentValue value={incidentalCostsPercent} invert={true} precision={0}/>)</li>
           <li>Netto-Kaufpreis/m²: <strong><CalculatedCurrencyValue value={netPricePerSquareMeter} invert={true}/></strong></li>
           <li>Miete/m²: <strong><CalculatedCurrencyValue value={rentPerSquareMeter}/></strong></li>
+          <li>Eigenkapital: <strong><CalculatedCurrencyValue value={equity} invert={true}/></strong></li>
+          <li>Darlehen: <strong><CalculatedCurrencyValue value={loan} invert={true}/></strong></li>
         </ul>
       </div>
     )
@@ -27,9 +29,11 @@ function mapStateToProps(state) {
   return {
     purchasingPriceFactor: state.prices.purchasingPriceFactor,
     incidentalCosts: state.prices.incidentalCosts,
-    incidentalCostsPercent: state.prices.incidentalCostsPercent || 0,
+    incidentalCostsPercent: state.prices.incidentalCostsPercent,
     netPricePerSquareMeter: state.prices.netPricePerSquareMeter,
-    rentPerSquareMeter: state.prices.rentPerSquareMeter
+    rentPerSquareMeter: state.prices.rentPerSquareMeter,
+    equity: state.prices.equity,
+    loan: state.prices.loan,
   }
 }
 
