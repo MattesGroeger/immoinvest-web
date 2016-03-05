@@ -3,10 +3,10 @@ import update from 'react-addons-update'
 import { CHANGE_BASE_DATA } from '../actions/index'
 
 const initialState = {
-  squareMeters: 0,
-  grossPrice: 0,
-  baseRent: 0,
-  HOAFee: 0,
+  // squareMeters: 0,
+  // grossPrice: 0,
+  // baseRent: 0,
+  // HOAFee: 0,
 
   commissionPercent: 0,
   realEstateTransferTaxPercent: 0.06,
