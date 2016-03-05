@@ -11,6 +11,8 @@ const initialState = {
   purchasingPriceFactor: 0,
   equity: 0,
   loan: 0,
+  monthlyRate: 0,
+  specialYearlyPaymentPercent: 0,
 }
 
 function calculateRentPerSquareMeter(baseRent, squareMeters) {
@@ -37,18 +39,59 @@ function calculatePurchasingPriceFactor(baseRent, grossPrice) {
   return baseRent > 0 ? grossPrice / (baseRent * 12) : 0
 }
 
-function calculateEquity(totalPrice, equityPercent) {
-  return totalPrice * equityPercent
+function calculateEquity(grossPrice, equityPercent, incidentalCosts) {
+  return (grossPrice * equityPercent) + incidentalCosts
+}
+
+function calculateMonthlyRate(loan, borrowingRatePercent, amortizationRatePercent) {
+  return loan * borrowingRatePercent + loan * amortizationRatePercent
+}
+
+function calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment) {
+  return loan > 0 ? specialYearlyPayment / loan : 0
+}
+
+
+
+function calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent) {
+  function calculateDept(dept, currentYear, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment) {
+    if (currentYear >= fixedBorrowingRateYears) {
+      return dept
+    } else {
+      const borrowingRate = dept * borrowingRatePercent
+      const amortizationRateTemp = monthlyRate - borrowingRate + specialYearlyPayment
+      const amortizationRate = dept < amortizationRateTemp ? dept : amortizationRateTemp
+      return calculateDept(dept - amortizationRate, currentYear + 1, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment)
+    }
+  }
+  const deptAfterYears = calculateDept(loan, 1, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment)
+  return deptAfterYears * followUpBorrowingRatePercent + deptAfterYears * amortizationRatePercent
 }
 
 export default function prices(state = initialState, action) {
   switch (action.type) {
     case CALCULATE_PRICES:
-      const { grossPrice, commissionPercent, notaryCostPercent, landRegisterCostPercent, realEstateTransferTaxPercent, squareMeters, baseRent, equityPercent } = action.baseData
+      const {
+        squareMeters,
+        grossPrice,
+        baseRent,
+
+        commissionPercent,
+        realEstateTransferTaxPercent,
+        notaryCostPercent,
+        landRegisterCostPercent,
+
+        equityPercent,
+        fixedBorrowingRateYears,
+        borrowingRatePercent,
+        amortizationRatePercent,
+        followUpBorrowingRatePercent,
+        specialYearlyPayment } = action.baseData
       const incidentalCosts = calculateIncidentalCosts(grossPrice, commissionPercent, notaryCostPercent, landRegisterCostPercent, realEstateTransferTaxPercent)
       const totalPrice = grossPrice + incidentalCosts
-      const equity = calculateEquity(totalPrice, equityPercent)
+      const equity = calculateEquity(grossPrice, equityPercent, incidentalCosts)
       const loan = totalPrice - equity
+      const monthlyRate = calculateMonthlyRate(loan, borrowingRatePercent, amortizationRatePercent)
       return {
         rentPerSquareMeter: calculateRentPerSquareMeter(baseRent, squareMeters),
         netPricePerSquareMeter: calculatePricePerSquareMeter(squareMeters, totalPrice),
@@ -58,6 +101,9 @@ export default function prices(state = initialState, action) {
         purchasingPriceFactor: calculatePurchasingPriceFactor(baseRent, grossPrice),
         equity: equity,
         loan: loan,
+        monthlyRate: monthlyRate,
+        monthlyFollowUpRate: calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent),
+        specialYearlyPaymentPercent: calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment),
       }
     default:
       return state

@@ -8,12 +8,7 @@ import GraphView from './simulation/graph'
 import BaseDataForm from './simulation/baseData'
 import IncidentalCostsForm from './simulation/incidentalCosts'
 import FinancingForm from './simulation/financing'
-
-class TableView extends React.Component {
-  render() {
-    return (<div>Coming Soon</div>)
-  }
-}
+import TableView from './simulation/table'
 
 export default class Simulation extends React.Component {
   render() {

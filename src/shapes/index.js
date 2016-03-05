@@ -20,6 +20,7 @@ export const BaseData = PropTypes.shape({
   borrowingRatePercent: PropTypes.number, // Sollzins %
   amortizationRatePercent: PropTypes.number, // Tilgungsrate %
   followUpBorrowingRatePercent: PropTypes.number, // Anschlusszinssatz
+  specialYearlyPayment: PropTypes.number, // Jährliche Sonderzahlung in €
 })
 
 // calculated
@@ -32,4 +33,18 @@ export const Prices = PropTypes.shape({
   totalPrice: PropTypes.number, // Netto Kaufpreis
   equity: PropTypes.number, // Eigenkapital
   loan: PropTypes.number, // Darlehen
+  monthlyRate: PropTypes.number, // Monatsrate
+  monthlyFollowUpRate: PropTypes.number, // Monatsrate nach Ende Zinsbindung
+  specialYearlyPaymentPercent: PropTypes.number, // Jährliche Sondertilgungsrate
+})
+
+export const Table = PropTypes.arrayOf(TableRow)
+
+export const TableRow = PropTypes.shape({
+  year: PropTypes.number.isRequired, // Jahr
+  dept: PropTypes.number.isRequired, // Schuldenstand
+  borrowingRate: PropTypes.number.isRequired, // Rate Zinsen
+  amortizationRate: PropTypes.number.isRequired, // Rate Tilgung
+  totalRate: PropTypes.number.isRequired, // Rate Gesamt
+  remainingDept: PropTypes.number.isRequired, // Restschuld
 })

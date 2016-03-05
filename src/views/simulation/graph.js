@@ -12,10 +12,11 @@ export default class GraphView extends React.Component {
       <div>
         <ul>
           <li>Kaufpreisfaktor: <strong><CalculatedFactorValue value={purchasingPriceFactor} invert={true}/></strong> ({"<"} 15-20)</li>
-          <li>Nebenkosten: <strong><CalculatedCurrencyValue value={incidentalCosts} invert={true}/></strong> (<CalculatedPercentValue value={incidentalCostsPercent} invert={true} precision={0}/>)</li>
           <li>Netto-Kaufpreis/m²: <strong><CalculatedCurrencyValue value={netPricePerSquareMeter} invert={true}/></strong></li>
           <li>Miete/m²: <strong><CalculatedCurrencyValue value={rentPerSquareMeter}/></strong></li>
+          <hr/>
           <li>Eigenkapital: <strong><CalculatedCurrencyValue value={equity} invert={true}/></strong></li>
+          <li>Nebenkosten: <strong><CalculatedCurrencyValue value={incidentalCosts} invert={true}/></strong> (<CalculatedPercentValue value={incidentalCostsPercent} invert={true} precision={0}/>)</li>
           <li>Darlehen: <strong><CalculatedCurrencyValue value={loan} invert={true}/></strong></li>
         </ul>
       </div>

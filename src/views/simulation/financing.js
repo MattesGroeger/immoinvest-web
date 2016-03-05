@@ -2,20 +2,30 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { changeBaseData } from '../../actions/index'
-import { CalculatedCurrencyValue } from '../../components/calculatedValue'
+import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
 
 class FinancingForm extends React.Component {
 
   render() {
-    const { equityPercent, equity, fixedBorrowingRateYears, borrowingRatePercent, amortizationRatePercent, followUpBorrowingRatePercent } = this.props
+    const { equityPercent, equity, fixedBorrowingRateYears, borrowingRatePercent, amortizationRatePercent, followUpBorrowingRatePercent, specialYearlyPayment, specialYearlyPaymentPercent } = this.props
     return (
       <form>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "equityPercent")} defaultValue={equityPercent}/> % Eigenkapitalquote (<CalculatedCurrencyValue value={equity} invert={true}/>)</p>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "fixedBorrowingRateYears")} defaultValue={fixedBorrowingRateYears}/> Zinsbindung in Jahren (5, 10 oder 15 Jahre)</p>
+        <p><input type="text" onChange={this.updateIntegerValue.bind(this, "fixedBorrowingRateYears")} defaultValue={fixedBorrowingRateYears}/> Zinsbindung in Jahren (5, 10 oder 15 Jahre)</p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "borrowingRatePercent")} defaultValue={borrowingRatePercent}/> % Sollzins</p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "followUpBorrowingRatePercent")} defaultValue={followUpBorrowingRatePercent}/> % Sollzins nach Ablauf der Zinsbindung</p>
+        <p><input type="text" onChange={this.updatePercentValue.bind(this, "amortizationRatePercent")} defaultValue={amortizationRatePercent}/> % Anfängliche Tilgungsrate</p>
+        <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "specialYearlyPayment")} defaultValue={specialYearlyPayment}/> € Sondertilgung im Jahr (<CalculatedPercentValue value={specialYearlyPaymentPercent}/>)</p>
       </form>
     );
+  }
+
+  updateIntegerValue(property, event) {
+    this.props.changeBaseData(property, parseInt(event.target.value))
+  }
+
+  updateCurrencyValue(property, event) {
+    this.props.changeBaseData(property, parseFloat(event.target.value.replace(",",".")))
   }
 
   updatePercentValue(property, event) {
@@ -25,22 +35,26 @@ class FinancingForm extends React.Component {
 
 FinancingForm.propTypes = {
   changeBaseData: PropTypes.func.isRequired,
-  equityPercent: PropTypes.number,
+  equityPercent: PropTypes.string,
   equity: PropTypes.number,
   fixedBorrowingRateYears: PropTypes.number,
-  borrowingRatePercent: PropTypes.number,
-  amortizationRatePercent: PropTypes.number,
-  followUpBorrowingRatePercent: PropTypes.number,
+  borrowingRatePercent: PropTypes.string,
+  amortizationRatePercent: PropTypes.string,
+  followUpBorrowingRatePercent: PropTypes.string,
+  specialYearlyPayment: PropTypes.string,
+  specialYearlyPaymentPercent: PropTypes.number,
 }
 
 function mapStateToProps(state) {
   return {
-    equityPercent: state.baseData.equityPercent * 100,
+    equityPercent: (state.baseData.equityPercent * 100).toFixed(1).replace(".",","),
     equity: state.prices.equity,
     fixedBorrowingRateYears: state.baseData.fixedBorrowingRateYears,
-    borrowingRatePercent: state.baseData.borrowingRatePercent * 100,
-    amortizationRatePercent: state.baseData.amortizationRatePercent * 100,
-    followUpBorrowingRatePercent: state.baseData.followUpBorrowingRatePercent * 100,
+    borrowingRatePercent: (state.baseData.borrowingRatePercent * 100).toFixed(1).replace(".",","),
+    amortizationRatePercent: (state.baseData.amortizationRatePercent * 100).toFixed(1).replace(".",","),
+    followUpBorrowingRatePercent: (state.baseData.followUpBorrowingRatePercent * 100).toFixed(1).replace(".",","),
+    specialYearlyPayment: (state.baseData.specialYearlyPayment).toFixed(0).replace(".",","),
+    specialYearlyPaymentPercent: state.prices.specialYearlyPaymentPercent,
   }
 }
 
