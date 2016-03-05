@@ -11,11 +11,17 @@ class FinancingForm extends React.Component {
     return (
       <form>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "equityPercent")} defaultValue={equityPercent}/> % Eigenkapitalquote (<CalculatedCurrencyValue value={equity} invert={true}/>)</p>
+        <p><input type="range" onChange={this.updatePercentValue.bind(this, "equityPercent")} defaultValue={equityPercent} /></p>
         <p><input type="text" onChange={this.updateIntegerValue.bind(this, "fixedBorrowingRateYears")} defaultValue={fixedBorrowingRateYears}/> Zinsbindung in Jahren (5, 10 oder 15 Jahre)</p>
+        <p><input type="range" onChange={this.updateIntegerValue.bind(this, "fixedBorrowingRateYears")} defaultValue={fixedBorrowingRateYears} min={0} max={20} /></p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "borrowingRatePercent")} defaultValue={borrowingRatePercent}/> % Sollzins</p>
+        <p><input type="range" onChange={this.updatePercentValue.bind(this, "borrowingRatePercent")} defaultValue={borrowingRatePercent} min={0} max={1} /></p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "followUpBorrowingRatePercent")} defaultValue={followUpBorrowingRatePercent}/> % Sollzins nach Ablauf der Zinsbindung</p>
+        <p><input type="range" onChange={this.updatePercentValue.bind(this, "followUpBorrowingRatePercent")} defaultValue={followUpBorrowingRatePercent} min={0} max={1} /></p>
         <p><input type="text" onChange={this.updatePercentValue.bind(this, "amortizationRatePercent")} defaultValue={amortizationRatePercent}/> % Anfängliche Tilgungsrate</p>
+        <p><input type="range" onChange={this.updatePercentValue.bind(this, "amortizationRatePercent")} defaultValue={amortizationRatePercent} min={0} max={1}/></p>
         <p><input type="text" onChange={this.updateCurrencyValue.bind(this, "specialYearlyPayment")} defaultValue={specialYearlyPayment}/> € Sondertilgung im Jahr (<CalculatedPercentValue value={specialYearlyPaymentPercent}/>)</p>
+        <p><input type="range" onChange={this.updateCurrencyValue.bind(this, "specialYearlyPayment")} defaultValue={specialYearlyPayment} min={0} max={5000}/></p>
       </form>
     );
   }
