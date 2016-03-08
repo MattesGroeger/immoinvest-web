@@ -89,9 +89,9 @@ export default function prices(state = initialState, action) {
         specialYearlyPayment } = action.baseData
       const incidentalCosts = calculateIncidentalCosts(grossPrice, commissionPercent, notaryCostPercent, landRegisterCostPercent, realEstateTransferTaxPercent)
       const totalPrice = grossPrice + incidentalCosts
-      const equity = calculateEquity(grossPrice, equityPercent, incidentalCosts)
+      const equity = calculateEquity(grossPrice, equityPercent.value, incidentalCosts)
       const loan = totalPrice - equity
-      const monthlyRate = calculateMonthlyRate(loan, borrowingRatePercent, amortizationRatePercent)
+      const monthlyRate = calculateMonthlyRate(loan, borrowingRatePercent.value, amortizationRatePercent.value)
       return {
         rentPerSquareMeter: calculateRentPerSquareMeter(baseRent, squareMeters),
         netPricePerSquareMeter: calculatePricePerSquareMeter(squareMeters, totalPrice),
@@ -102,8 +102,8 @@ export default function prices(state = initialState, action) {
         equity: equity,
         loan: loan,
         monthlyRate: monthlyRate,
-        monthlyFollowUpRate: calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent),
-        specialYearlyPaymentPercent: calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment),
+        monthlyFollowUpRate: calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears.value, monthlyRate, borrowingRatePercent.value, amortizationRatePercent.value, specialYearlyPayment.value, followUpBorrowingRatePercent.value),
+        specialYearlyPaymentPercent: calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment.value),
       }
     default:
       return state

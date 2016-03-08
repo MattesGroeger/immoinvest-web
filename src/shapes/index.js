@@ -15,12 +15,18 @@ export const BaseData = PropTypes.shape({
   landRegisterCostPercent: PropTypes.number, // Grundbuch-Eintrag %
 
   // financing
-  equityPercent: PropTypes.number, // Eigenkapital %
-  fixedBorrowingRateYears: PropTypes.number, // Sollzinsbindung in Jahren
-  borrowingRatePercent: PropTypes.number, // Sollzins %
-  amortizationRatePercent: PropTypes.number, // Tilgungsrate %
-  followUpBorrowingRatePercent: PropTypes.number, // Anschlusszinssatz
-  specialYearlyPayment: PropTypes.number, // Jährliche Sonderzahlung in €
+  equityPercent: ValueObject, // Eigenkapital %
+  fixedBorrowingRateYears: ValueObject, // Sollzinsbindung in Jahren
+  borrowingRatePercent: ValueObject, // Sollzins %
+  amortizationRatePercent: ValueObject, // Tilgungsrate %
+  followUpBorrowingRatePercent: ValueObject, // Anschlusszinssatz
+  specialYearlyPayment: ValueObject, // Jährliche Sonderzahlung in €
+})
+
+export const ValueObject = PropTypes.shape({
+  value: PropTypes.number,
+  text: PropTypes.string,
+  range: PropTypes.string
 })
 
 // calculated

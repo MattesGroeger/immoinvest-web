@@ -51,7 +51,7 @@ export default function prices(state = initialState, action) {
     case CALCULATE_TABLE:
       const { fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment } = action.baseData
       const { loan, monthlyRate, monthlyFollowUpRate } = action.prices
-      return calculateTable(40, loan, monthlyRate, monthlyFollowUpRate, fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment)
+      return calculateTable(40, loan, monthlyRate, monthlyFollowUpRate, fixedBorrowingRateYears.value, borrowingRatePercent.value, followUpBorrowingRatePercent.value, specialYearlyPayment.value)
     default:
       return state
   }
