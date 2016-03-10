@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 class UserInput extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {value: 0, input: ""}
+    this.state = {value: undefined, input: ""}
   }
 
   valueLink() {
@@ -90,7 +90,7 @@ PercentUserInput.propTypes = { digits: PropTypes.number }
 PercentUserInput.defaultProps = { digits: 2 }
 
 /**
- * PercentUserInput
+ * IntUserInput
  */
 
 export class IntUserInput extends UserInput {
@@ -113,3 +113,26 @@ export class IntUserInput extends UserInput {
 
 IntUserInput.propTypes = { }
 IntUserInput.defaultProps = { }
+
+/**
+ * RangeUserInput
+ */
+
+export class RangeUserInput extends UserInput {
+
+  render() {
+    return <input type="range" valueLink={this.valueLink()}/>
+  }
+
+  fromModelValue(value) {
+    if (value == undefined) { return "" }
+    return (Math.min((value * 100) / this.props.max * this.props.multiplier, 100)).toFixed(0)
+  }
+
+  toModelValue(value) {
+    return parseFloat(value) * this.props.max / 100 / this.props.multiplier
+  }
+}
+
+RangeUserInput.propTypes = { min: PropTypes.number, max: PropTypes.number, multiplier: PropTypes.number }
+RangeUserInput.defaultProps = { min: 0, max: 100, multiplier: 1 }

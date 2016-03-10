@@ -48,10 +48,6 @@ export default class GraphView extends React.Component {
               borderColor: '#AADEF0',
               backgroundColor: '#AADEF0',
               yAxisID: 'y-axis-1',
-              customTooltips: (tooltip) => {
-                debugger
-                print(tooltip)
-              },
             }, {
               label: "Tilgung",
               type:'bar',

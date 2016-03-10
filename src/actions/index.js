@@ -2,11 +2,10 @@ export const CHANGE_BASE_DATA = 'CHANGE_BASE_DATA'
 export const CALCULATE_PRICES = 'CALCULATE_PRICES'
 export const CALCULATE_TABLE = 'CALCULATE_TABLE'
 
-function setBaseData(key, subkey, value) {
+function setBaseData(key, value) {
   return {
     type: CHANGE_BASE_DATA,
     key: key,
-    subkey: subkey,
     value: value
   }
 }
@@ -26,14 +25,10 @@ function calculateTable(baseData, prices) {
   }
 }
 
-export function changeBaseDataObject(key, subkey, value) {
+export function changeBaseData(key, value) {
   return (dispatch, getState) => {
-    dispatch(setBaseData(key, subkey, value))
+    dispatch(setBaseData(key, value))
     dispatch(calculatePrices(getState().baseData))
     dispatch(calculateTable(getState().baseData, getState().prices))
   }
-}
-
-export function changeBaseData(key, value) {
-  return changeBaseDataObject(key, undefined, value)
 }

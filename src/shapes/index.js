@@ -15,7 +15,7 @@ export const BaseData = PropTypes.shape({
   landRegisterCostPercent: PropTypes.number, // Grundbuch-Eintrag %
 
   // financing
-  equityPercent: ValueObject, // Eigenkapital %
+  equityPercent: PropTypes.number, // Eigenkapital %
   fixedBorrowingRateYears: ValueObject, // Sollzinsbindung in Jahren
   borrowingRatePercent: ValueObject, // Sollzins %
   amortizationRatePercent: ValueObject, // Tilgungsrate %
