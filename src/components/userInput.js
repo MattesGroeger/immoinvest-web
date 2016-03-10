@@ -1,52 +1,115 @@
 import React, { Component, PropTypes } from 'react'
 
-export class UserInput extends React.Component {
-  render() {
-    const { value } = this.props
-    return (
-      <input
-        type="text"
-        onChange={this.handleChange.bind(this)}
-        defaultValue={this.formatValue(value)}/>
-    )
+class UserInput extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {value: 0, input: ""}
   }
 
-  handleChange(event) {
-    this.props.onValueChange(this.parseValue(event.target.value))
-  }
-
-  formatValue(value) {
-    if (value == undefined) {
-      return ""
-    }
-    switch (this.props.type) {
-      case "integer":
-        return value.toFixed(0)
-      case "percent":
-        return (value * 100).toFixed(1).replace(".",",")
-      case "currency":
-        return (value).toFixed(2).replace(".",",")
-      default:
-        return value
+  valueLink() {
+    return {
+      value: this.currentValue(),
+      requestChange: this.handleChange.bind(this)
     }
   }
 
-  parseValue(value) {
-    switch (this.props.type) {
-      case "integer":
-        return parseInt(value.replace(",","."))
-      case "percent":
-        return parseFloat(value.replace(",","."))/100
-      case "currency":
-        return parseFloat(value.replace(",","."))
-      default:
-        return value
-    }
+  currentValue() {
+    return (this.props.value != this.state.value) ? this.fromModelValue(this.props.value) : this.state.input
+  }
+
+  handleChange(input) {
+    const { changeBaseData, property } = this.props
+    const newValue = this.toModelValue(input)
+    changeBaseData(property, newValue)
+    this.setState({
+      value: newValue,
+      input: input})
+  }
+
+  // 2.0 => 2,0
+  fromModelValue(value) {
+    if (value == undefined) { return "" }
+    return value.toString().replace(".",",")
+  }
+
+  // 2,14 => 2.14
+  toModelValue(value) {
+    return parseFloat(value.replace(",",".")) || 0
   }
 }
 
 UserInput.propTypes = {
-  onValueChange: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-  value: PropTypes.number
+  changeBaseData: PropTypes.func.isRequired,
+  value: PropTypes.number,
+  property: PropTypes.string.isRequired
 }
+
+/**
+ * FloatUserInput
+ */
+
+export class FloatUserInput extends UserInput {
+
+  render() {
+    return <input type="text" valueLink={this.valueLink()}/>
+  }
+
+  // 2.0 => 2,00
+  fromModelValue(value) {
+    if (value == undefined) { return "" }
+    return value.toFixed(this.props.digits).replace(".",",")
+  }
+}
+
+FloatUserInput.propTypes = { digits: PropTypes.number }
+FloatUserInput.defaultProps = { digits: 2 }
+
+/**
+ * PercentUserInput
+ */
+
+export class PercentUserInput extends UserInput {
+
+  render() {
+    return <input type="text" valueLink={this.valueLink()}/>
+  }
+
+  // 0.1 => 10,00
+  fromModelValue(value) {
+    if (value == undefined) { return "" }
+    return (value * 100).toFixed(this.props.digits).replace(".",",")
+  }
+
+  // 2,14 => 0.0214
+  toModelValue(value) {
+    return parseFloat(value.replace(",","."))/100 || 0
+  }
+}
+
+PercentUserInput.propTypes = { digits: PropTypes.number }
+PercentUserInput.defaultProps = { digits: 2 }
+
+/**
+ * PercentUserInput
+ */
+
+export class IntUserInput extends UserInput {
+
+  render() {
+    return <input type="text" valueLink={this.valueLink()}/>
+  }
+
+  // 1.0 => 1
+  fromModelValue(value) {
+    if (value == undefined) { return "" }
+    return parseInt(value)
+  }
+
+  // 2,14 => 2
+  toModelValue(value) {
+    return parseInt(value.replace(",",".")) || 0
+  }
+}
+
+IntUserInput.propTypes = { }
+IntUserInput.defaultProps = { }

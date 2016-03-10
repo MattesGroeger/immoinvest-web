@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { changeBaseData } from '../../actions/index'
 import { BaseData } from '../../shapes/index'
-import { UserInput } from '../../components/userInput'
+import { FloatUserInput } from '../../components/userInput'
 
 class BaseDataForm extends React.Component {
 
@@ -12,10 +12,10 @@ class BaseDataForm extends React.Component {
     const { squareMeters, grossPrice, baseRent, HOAFee } = baseData
     return (
       <form>
-        <p><UserInput type="integer" onValueChange={(value) => changeBaseData("squareMeters", value)} value={squareMeters}/> Quadratmeter</p>
-        <p><UserInput type="currency" onValueChange={(value) => changeBaseData("grossPrice", value)} value={grossPrice}/> € Brutto Kaufpreis</p>
-        <p><UserInput type="currency" onValueChange={(value) => changeBaseData("baseRent", value)} value={baseRent}/> € Kaltmiete/Monat</p>
-        <p><UserInput type="currency" onValueChange={(value) => changeBaseData("HOAFee", value)} value={HOAFee}/> € Hausgeld/Monat</p>
+        <p><FloatUserInput changeBaseData={changeBaseData} value={squareMeters} property="squareMeters" /> Quadratmeter</p>
+        <p><FloatUserInput changeBaseData={changeBaseData} value={grossPrice} property="grossPrice"/> € Brutto Kaufpreis</p>
+        <p><FloatUserInput changeBaseData={changeBaseData} value={baseRent} property="baseRent"/> € Kaltmiete/Monat</p>
+        <p><FloatUserInput changeBaseData={changeBaseData} value={HOAFee} property="HOAFee"/> € Hausgeld/Monat</p>
       </form>
     );
   }

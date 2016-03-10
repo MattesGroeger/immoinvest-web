@@ -29,6 +29,8 @@ export default class Simulation extends React.Component {
           <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
           <li>Alleinstehen/Verheirated</li>
           <li>Zu versteuerndes Einkommen in € (oder persönlicher Steuersatz in %?)</li>
+          <li>Haus- und Grundbesitzer-Haftpflichtversicherung?</li>
+          <li>Grundsteuer?</li>
         </ul>
         <h3>Wertentwicklung</h3>
         <ul>
