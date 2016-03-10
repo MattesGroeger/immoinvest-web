@@ -1,15 +1,25 @@
 import React, { Component, PropTypes } from 'react'
+import { Input } from 'react-bootstrap'
 
 class UserInput extends React.Component {
   constructor(props) {
     super(props)
-    this.type = "text"
     this.state = {value: undefined, input: ""}
   }
 
   render() {
-    const { size, disabled } = this.props
-    return <input type={this.type} valueLink={this.valueLink()} size={size} disabled={disabled}/>
+    const { size, disabled, addonBefore, addonAfter, label } = this.props
+    return (
+      <Input
+        type="text"
+        valueLink={this.valueLink()}
+        size={size}
+        disabled={disabled}
+        addonBefore={addonBefore}
+        addonAfter={addonAfter}
+        label={label}
+      />
+    )
   }
 
   valueLink() {
@@ -50,10 +60,14 @@ UserInput.propTypes = {
   property: PropTypes.string.isRequired,
   size: PropTypes.string,
   disabled: PropTypes.string,
+  addonBefore: PropTypes.boolean
 }
 
 UserInput.defaultProps = {
-  disabled: false
+  disabled: false,
+  addonBefore: "",
+  addonAfter: "",
+  label: "",
 }
 
 /**
@@ -120,11 +134,6 @@ IntUserInput.defaultProps = { }
 
 export class RangeUserInput extends UserInput {
 
-  constructor(props) {
-    super(props)
-    this.type = "range"
-  }
-
   fromModelValue(value) {
     if (value == undefined) { return "" }
     return (Math.min((value * 100) / this.props.max * this.props.multiplier, 100)).toFixed(0)
@@ -132,6 +141,16 @@ export class RangeUserInput extends UserInput {
 
   toModelValue(value) {
     return parseFloat(value) * this.props.max / 100 / this.props.multiplier
+  }
+
+  render() {
+    return (
+      <input
+        type="range"
+        valueLink={this.valueLink()}
+        disabled={this.props.disabled}
+      />
+    )
   }
 }
 

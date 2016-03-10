@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Panel, Table } from 'react-bootstrap'
 
 import { TableRow } from '../../shapes/index'
 import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
@@ -52,29 +53,31 @@ export default class TableView extends React.Component {
     }
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Jahr</th>
-            <th>Schuldenstand</th>
-            <th>Zinsen</th>
-            <th>Tilgung</th>
-            <th>Gesamt</th>
-            <th>Restschuld</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-          <tr>
-            <td></td>
-            <td></td>
-            <td><strong><CalculatedCurrencyValue value={borrowingRateTotalCost} invert={true}/></strong></td>
-            <td><strong><CalculatedCurrencyValue value={amortizationRateTotalCost} invert={true}/></strong></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+      <Panel header="Tabellarische Darstellung">
+        <Table fill>
+          <thead>
+            <tr>
+              <th>Jahr</th>
+              <th>Schuldenstand</th>
+              <th>Zinsen</th>
+              <th>Tilgung</th>
+              <th>Gesamt</th>
+              <th>Restschuld</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows}
+            <tr>
+              <td></td>
+              <td></td>
+              <td><strong><CalculatedCurrencyValue value={borrowingRateTotalCost} invert={true}/></strong></td>
+              <td><strong><CalculatedCurrencyValue value={amortizationRateTotalCost} invert={true}/></strong></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </Table>
+      </Panel>
     )
   }
 }

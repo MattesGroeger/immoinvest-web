@@ -1,20 +1,79 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Row, Col, Input } from 'react-bootstrap'
 
 import { changeBaseData } from '../../actions/index'
 import { BaseData } from '../../shapes/index'
 import { CalculatedCurrencyValue } from '../../components/calculatedValue'
+import { PercentUserInput } from '../../components/userInput'
 
 class IncidentalCostsForm extends React.Component {
 
   render() {
+    const { changeBaseData, baseData } = this.props
     const { commissionPercent, commission, realEstateTransferTaxPercent, realEstateTransferTax, notaryCostPercent, notaryCost, landRegisterCostPercent, landRegisterCost } = this.props
     return (
       <form>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "commissionPercent")} defaultValue={commissionPercent}/> % Courtage (<CalculatedCurrencyValue value={commission} invert={true}/>)</p>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "realEstateTransferTaxPercent")} defaultValue={realEstateTransferTaxPercent}/> % Grunderwerbsteuer (<CalculatedCurrencyValue value={realEstateTransferTax} invert={true}/>)</p>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "notaryCostPercent")} defaultValue={notaryCostPercent}/> % Notarkosten (<CalculatedCurrencyValue value={notaryCost} invert={true}/>)</p>
-        <p><input type="text" onChange={this.updatePercentValue.bind(this, "landRegisterCostPercent")} defaultValue={landRegisterCostPercent}/> % Grundbuch-Eintrag (<CalculatedCurrencyValue value={landRegisterCost} invert={true}/>)</p>
+        <Input label="Courtage" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={commissionPercent}
+                property="commissionPercent"
+                addonAfter="%"
+              />
+            </Col>
+            <Col xs={6}>
+              <CalculatedCurrencyValue value={commission} invert={true}/>
+            </Col>
+          </Row>
+        </Input>
+        <Input label="Grunderwerbsteuer" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={realEstateTransferTaxPercent}
+                property="realEstateTransferTaxPercent"
+                addonAfter="%"
+              />
+            </Col>
+            <Col xs={6}>
+              <CalculatedCurrencyValue value={realEstateTransferTax} invert={true}/>
+            </Col>
+          </Row>
+        </Input>
+        <Input label="Notarkosten" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={notaryCostPercent}
+                property="notaryCostPercent"
+                addonAfter="%"
+              />
+            </Col>
+            <Col xs={6}>
+              <CalculatedCurrencyValue value={notaryCost} invert={true}/>
+            </Col>
+          </Row>
+        </Input>
+        <Input label="Grundbuch-Eintrag" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={landRegisterCostPercent}
+                property="landRegisterCostPercent"
+                addonAfter="%"
+              />
+            </Col>
+            <Col xs={6}>
+              <CalculatedCurrencyValue value={landRegisterCost} invert={true}/>
+            </Col>
+          </Row>
+        </Input>
       </form>
     );
   }
@@ -25,13 +84,13 @@ class IncidentalCostsForm extends React.Component {
 }
 
 IncidentalCostsForm.propTypes = {
-  commissionPercent: PropTypes.string.isRequired,
+  commissionPercent: PropTypes.number.isRequired,
   commission: PropTypes.number.isRequired,
-  realEstateTransferTaxPercent: PropTypes.string.isRequired,
+  realEstateTransferTaxPercent: PropTypes.number.isRequired,
   realEstateTransferTax: PropTypes.number.isRequired,
-  notaryCostPercent: PropTypes.string.isRequired,
+  notaryCostPercent: PropTypes.number.isRequired,
   notaryCost: PropTypes.number.isRequired,
-  landRegisterCostPercent: PropTypes.string.isRequired,
+  landRegisterCostPercent: PropTypes.number.isRequired,
   landRegisterCost: PropTypes.number.isRequired,
   changeBaseData: PropTypes.func.isRequired
 }
@@ -39,13 +98,13 @@ IncidentalCostsForm.propTypes = {
 function mapStateToProps(state) {
   const { commissionPercent, realEstateTransferTaxPercent, notaryCostPercent, landRegisterCostPercent, grossPrice } = state.baseData
   return {
-    commissionPercent: (commissionPercent * 100).toFixed(1).replace(".",","),
+    commissionPercent: commissionPercent,
     commission: grossPrice * commissionPercent,
-    realEstateTransferTaxPercent: (realEstateTransferTaxPercent * 100).toFixed(1).replace(".",","),
+    realEstateTransferTaxPercent: realEstateTransferTaxPercent,
     realEstateTransferTax: grossPrice * realEstateTransferTaxPercent,
-    notaryCostPercent: (notaryCostPercent * 100).toFixed(1).replace(".",","),
+    notaryCostPercent: notaryCostPercent,
     notaryCost: grossPrice * notaryCostPercent,
-    landRegisterCostPercent: (landRegisterCostPercent * 100).toFixed(1).replace(".",","),
+    landRegisterCostPercent: landRegisterCostPercent,
     landRegisterCost: grossPrice * landRegisterCostPercent,
   }
 }

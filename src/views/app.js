@@ -1,21 +1,31 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
+import { Grid, Row, Navbar, Nav, NavItem } from 'react-bootstrap'
+import { IndexLinkContainer } from 'react-router-bootstrap'
 
 export default class App extends React.Component {
   render() {
     return (
-      <div>
-        <div>
-          <h1>App</h1>
-          <ul>
-            <li><Link to="/simulation">Simulation</Link></li>
-            <li><Link to="/world">World</Link></li>
-          </ul>
-        </div>
-        <div className="detail">
-          {this.props.children}
-        </div>
-      </div>
+      <Grid>
+        <Navbar fixedTop>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">Geldregler</a>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+
+          </Nav>
+        </Navbar>
+        {this.props.children}
+      </Grid>
     )
   }
 }
+
+// <IndexLinkContainer to="/simulation" activeClassName="active">
+//   <NavItem>Investment</NavItem>
+// </IndexLinkContainer>
+// <IndexLinkContainer to="/world" activeClassName="active">
+//   <NavItem>Test</NavItem>
+// </IndexLinkContainer>

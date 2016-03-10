@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Row, Col, Input } from 'react-bootstrap'
 
 import { BaseData } from '../../shapes/index'
 import { changeBaseData } from '../../actions/index'
@@ -40,24 +41,126 @@ class FinancingForm extends React.Component {
     const { changeBaseData, equity, loan, incidentalCosts, specialYearlyPaymentPercent } = this.props
     return (
       <form>
-        <p>
-          <EquityUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" grossPrice={grossPrice} incidentalCosts={incidentalCosts}/> €
-          <PercentUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" size={6}/> % Eigenkapitalquote
-        </p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" multiplier={100}/></p>
-        <p><PercentUserInput changeBaseData={changeBaseData} value={borrowingRatePercent} property="borrowingRatePercent"/> % Sollzins</p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={borrowingRatePercent} property="borrowingRatePercent" multiplier={100} max={15}/></p>
-        <p><PercentUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent"/> % Anfängliche Tilgungsrate</p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" multiplier={100} max={10}/></p>
-        <p>
-          <FloatUserInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment"/> €
-          <SpecialYearlyPaymentInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment" loan={loan} size={6}/> % Sondertilgung im Jahr
-        </p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment" max={0.1 * loan}/></p>
-        <p><IntUserInput changeBaseData={changeBaseData} value={fixedBorrowingRateYears} property="fixedBorrowingRateYears"/> Zinsbindung in Jahren (5, 10 oder 15 Jahre)</p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={fixedBorrowingRateYears} property="fixedBorrowingRateYears" max={20}/></p>
-        <p><PercentUserInput changeBaseData={changeBaseData} value={followUpBorrowingRatePercent} property="followUpBorrowingRatePercent"/> % Sollzins nach Ablauf der Zinsbindung</p>
-        <p><RangeUserInput changeBaseData={changeBaseData} value={followUpBorrowingRatePercent} property="followUpBorrowingRatePercent" multiplier={100} max={15}/></p>
+        <Input label="Eigenkapitalquote" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <EquityUserInput
+                changeBaseData={changeBaseData}
+                value={equityPercent}
+                property="equityPercent"
+                grossPrice={grossPrice}
+                incidentalCosts={incidentalCosts}
+                addonAfter="€" />
+            </Col>
+            <Col xs={6}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={equityPercent}
+                property="equityPercent"
+                size={6}
+                addonAfter="%"/>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" multiplier={100}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label="Sollzins" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={12}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={borrowingRatePercent}
+                property="borrowingRatePercent"
+                addonAfter="%" />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={borrowingRatePercent} property="borrowingRatePercent" multiplier={100} max={15}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label="Anfängliche Tilgungsrate" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={12}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={amortizationRatePercent}
+                property="amortizationRatePercent"
+                addonAfter="%" />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" multiplier={100} max={10}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label="Sondertilgung im Jahr" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={6}>
+              <FloatUserInput
+                changeBaseData={changeBaseData}
+                value={specialYearlyPayment}
+                property="specialYearlyPayment"
+                addonAfter="€" />
+            </Col>
+            <Col xs={6}>
+              <SpecialYearlyPaymentInput
+                changeBaseData={changeBaseData}
+                value={specialYearlyPayment}
+                property="specialYearlyPayment"
+                loan={loan}
+                size={6}
+                addonAfter="%"/>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment" max={0.1 * loan}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label="Zinsbindung in Jahren" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={12}>
+              <IntUserInput
+                changeBaseData={changeBaseData}
+                value={fixedBorrowingRateYears}
+                property="fixedBorrowingRateYears"
+                addonAfter="Jahre" />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={fixedBorrowingRateYears} property="fixedBorrowingRateYears" max={20}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label="Sollzins nach Ablauf Zinsbindung" wrapperClassName="wrapper">
+          <Row>
+            <Col xs={12}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={followUpBorrowingRatePercent}
+                property="followUpBorrowingRatePercent"
+                addonAfter="%" />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={followUpBorrowingRatePercent} property="followUpBorrowingRatePercent" multiplier={100} max={15}/>
+            </Col>
+          </Row>
+        </Input>
       </form>
     )
   }

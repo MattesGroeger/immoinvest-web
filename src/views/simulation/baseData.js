@@ -12,10 +12,34 @@ class BaseDataForm extends React.Component {
     const { squareMeters, grossPrice, baseRent, HOAFee } = baseData
     return (
       <form>
-        <p><FloatUserInput changeBaseData={changeBaseData} value={squareMeters} property="squareMeters"/> Quadratmeter</p>
-        <p><FloatUserInput changeBaseData={changeBaseData} value={grossPrice} property="grossPrice"/> € Brutto Kaufpreis</p>
-        <p><FloatUserInput changeBaseData={changeBaseData} value={baseRent} property="baseRent"/> € Kaltmiete/Monat</p>
-        <p><FloatUserInput changeBaseData={changeBaseData} value={HOAFee} property="HOAFee"/> € Hausgeld/Monat</p>
+        <FloatUserInput
+          changeBaseData={changeBaseData}
+          value={squareMeters}
+          property="squareMeters"
+          label="Quadratmeter"
+          addonAfter="m²"
+        />
+        <FloatUserInput
+          changeBaseData={changeBaseData}
+          value={grossPrice}
+          property="grossPrice"
+          label="Brutto Kaufpreis"
+          addonAfter="€"
+        />
+        <FloatUserInput
+          changeBaseData={changeBaseData}
+          value={baseRent}
+          property="baseRent"
+          label="Kaltmiete/Monat"
+          addonAfter="€"
+        />
+        <FloatUserInput
+          changeBaseData={changeBaseData}
+          value={HOAFee}
+          property="HOAFee"
+          label="Hausgeld/Monat"
+          addonAfter="€"
+        />
       </form>
     );
   }
