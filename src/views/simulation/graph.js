@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Panel } from 'react-bootstrap'
+import { Panel, Tabs, Tab } from 'react-bootstrap'
 
 import { CalculatedFactorValue, CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
 
@@ -137,7 +137,13 @@ export default class GraphView extends React.Component {
         }
     return (
       <Panel header="Graphische Darstellung">
-        <BarChart width={800} height={300} chartData={chartData} chartOptions={chartOptions}/>
+        <Tabs defaultActiveKey={1} animation={false}>
+          <Tab eventKey={1} title="Finanzierung">
+            <BarChart width={800} height={300} chartData={chartData} chartOptions={chartOptions}/>
+          </Tab>
+          <Tab eventKey={2} title="Nebenkosten">TBD</Tab>
+          <Tab eventKey={3} title="Wertentwicklung">TBD</Tab>
+        </Tabs>
       </Panel>
     )
   }
