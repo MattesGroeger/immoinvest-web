@@ -3,7 +3,13 @@ import React, { Component, PropTypes } from 'react'
 class UserInput extends React.Component {
   constructor(props) {
     super(props)
+    this.type = "text"
     this.state = {value: undefined, input: ""}
+  }
+
+  render() {
+    const { size, disabled } = this.props
+    return <input type={this.type} valueLink={this.valueLink()} size={size} disabled={disabled}/>
   }
 
   valueLink() {
@@ -41,7 +47,13 @@ class UserInput extends React.Component {
 UserInput.propTypes = {
   changeBaseData: PropTypes.func.isRequired,
   value: PropTypes.number,
-  property: PropTypes.string.isRequired
+  property: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  disabled: PropTypes.string,
+}
+
+UserInput.defaultProps = {
+  disabled: false
 }
 
 /**
@@ -49,10 +61,6 @@ UserInput.propTypes = {
  */
 
 export class FloatUserInput extends UserInput {
-
-  render() {
-    return <input type="text" valueLink={this.valueLink()}/>
-  }
 
   // 2.0 => 2,00
   fromModelValue(value) {
@@ -69,10 +77,6 @@ FloatUserInput.defaultProps = { digits: 2 }
  */
 
 export class PercentUserInput extends UserInput {
-
-  render() {
-    return <input type="text" valueLink={this.valueLink()}/>
-  }
 
   // 0.1 => 10,00
   fromModelValue(value) {
@@ -95,10 +99,6 @@ PercentUserInput.defaultProps = { digits: 2 }
 
 export class IntUserInput extends UserInput {
 
-  render() {
-    return <input type="text" valueLink={this.valueLink()}/>
-  }
-
   // 1.0 => 1
   fromModelValue(value) {
     if (value == undefined) { return "" }
@@ -120,8 +120,9 @@ IntUserInput.defaultProps = { }
 
 export class RangeUserInput extends UserInput {
 
-  render() {
-    return <input type="range" valueLink={this.valueLink()}/>
+  constructor(props) {
+    super(props)
+    this.type = "range"
   }
 
   fromModelValue(value) {
