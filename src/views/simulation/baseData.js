@@ -14,13 +14,6 @@ class BaseDataForm extends React.Component {
       <form>
         <FloatUserInput
           changeBaseData={changeBaseData}
-          value={squareMeters}
-          property="squareMeters"
-          label="Quadratmeter"
-          addonAfter="m²"
-        />
-        <FloatUserInput
-          changeBaseData={changeBaseData}
           value={grossPrice}
           property="grossPrice"
           label="Brutto Kaufpreis"
@@ -39,6 +32,13 @@ class BaseDataForm extends React.Component {
           property="HOAFee"
           label="Hausgeld/Monat"
           addonAfter="€"
+        />
+        <FloatUserInput
+          changeBaseData={changeBaseData}
+          value={squareMeters}
+          property="squareMeters"
+          label="Quadratmeter"
+          addonAfter="m²"
         />
       </form>
     );
