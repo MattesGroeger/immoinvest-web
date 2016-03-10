@@ -8,12 +8,14 @@ const middleware = [
   thunkMiddleware
 ]
 
-const logger = createLogger({
-  collapsed: true,
-  logger: console,
-})
+if (process.env.ENV !== 'production') {
+  const logger = createLogger({
+    collapsed: true,
+    logger: console,
+  })
 
-middleware.push(logger)
+  middleware.push(logger)
+}
 
 const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore)
 
