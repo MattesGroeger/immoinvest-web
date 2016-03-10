@@ -16,7 +16,7 @@ class BaseDataForm extends React.Component {
           changeBaseData={changeBaseData}
           value={grossPrice}
           property="grossPrice"
-          label="Brutto Kaufpreis"
+          label="Kaufpreis"
           addonAfter="€"
         />
         <FloatUserInput

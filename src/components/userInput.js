@@ -8,12 +8,11 @@ class UserInput extends React.Component {
   }
 
   render() {
-    const { size, disabled, addonBefore, addonAfter, label } = this.props
+    const { disabled, addonBefore, addonAfter, label } = this.props
     return (
       <Input
         type="text"
         valueLink={this.valueLink()}
-        size={size}
         disabled={disabled}
         addonBefore={addonBefore}
         addonAfter={addonAfter}
@@ -58,7 +57,6 @@ UserInput.propTypes = {
   changeBaseData: PropTypes.func.isRequired,
   value: PropTypes.number,
   property: PropTypes.string.isRequired,
-  size: PropTypes.string,
   disabled: PropTypes.string,
   addonBefore: PropTypes.boolean
 }

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col, Input } from 'react-bootstrap'
+import { Alert, Row, Col, Input } from 'react-bootstrap'
 
 import { BaseData } from '../../shapes/index'
 import { changeBaseData } from '../../actions/index'
@@ -38,9 +38,17 @@ class FinancingForm extends React.Component {
 
   render() {
     const { grossPrice, equityPercent, fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, amortizationRatePercent, specialYearlyPayment } = this.props.baseData
-    const { changeBaseData, equity, loan, incidentalCosts, specialYearlyPaymentPercent } = this.props
+    const { disableFeature, changeBaseData, equity, loan, incidentalCosts, specialYearlyPaymentPercent } = this.props
+
+    const warningFeatureDisabled = (
+      <Alert bsStyle="warning">
+        Bitte tragen Sie zunächst den Brutto-Kaufpreis ein!
+      </Alert>
+    )
+
     return (
       <form>
+        {disableFeature ? warningFeatureDisabled : ""}
         <Input label="Eigenkapitalquote" wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
@@ -48,6 +56,7 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={equityPercent}
                 property="equityPercent"
+                disabled={disableFeature}
                 grossPrice={grossPrice}
                 incidentalCosts={incidentalCosts}
                 addonAfter="€" />
@@ -57,13 +66,14 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={equityPercent}
                 property="equityPercent"
+                disabled={disableFeature}
                 size={6}
                 addonAfter="%"/>
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" multiplier={100}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={equityPercent} property="equityPercent" disabled={disableFeature} multiplier={100}/>
             </Col>
           </Row>
         </Input>
@@ -75,12 +85,13 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={borrowingRatePercent}
                 property="borrowingRatePercent"
+                disabled={disableFeature}
                 addonAfter="%" />
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={borrowingRatePercent} property="borrowingRatePercent" multiplier={100} max={15}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={borrowingRatePercent} property="borrowingRatePercent" disabled={disableFeature} multiplier={100} max={15}/>
             </Col>
           </Row>
         </Input>
@@ -92,23 +103,25 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={amortizationRatePercent}
                 property="amortizationRatePercent"
+                disabled={disableFeature}
                 addonAfter="%" />
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" multiplier={100} max={10}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" disabled={disableFeature} multiplier={100} max={10}/>
             </Col>
           </Row>
         </Input>
 
-        <Input label="Sondertilgung im Jahr" wrapperClassName="wrapper">
+        <Input label="Jährliche Sondertilgung" wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <FloatUserInput
                 changeBaseData={changeBaseData}
                 value={specialYearlyPayment}
                 property="specialYearlyPayment"
+                disabled={disableFeature}
                 addonAfter="€" />
             </Col>
             <Col xs={6}>
@@ -116,6 +129,7 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={specialYearlyPayment}
                 property="specialYearlyPayment"
+                disabled={disableFeature}
                 loan={loan}
                 size={6}
                 addonAfter="%"/>
@@ -123,24 +137,25 @@ class FinancingForm extends React.Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment" max={0.1 * loan}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={specialYearlyPayment} property="specialYearlyPayment" disabled={disableFeature} max={0.1 * loan}/>
             </Col>
           </Row>
         </Input>
 
-        <Input label="Zinsbindung in Jahren" wrapperClassName="wrapper">
+        <Input label="Zinsbindung" wrapperClassName="wrapper">
           <Row>
             <Col xs={12}>
               <IntUserInput
                 changeBaseData={changeBaseData}
                 value={fixedBorrowingRateYears}
                 property="fixedBorrowingRateYears"
+                disabled={disableFeature}
                 addonAfter="Jahre" />
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={fixedBorrowingRateYears} property="fixedBorrowingRateYears" max={20}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={fixedBorrowingRateYears} property="fixedBorrowingRateYears" disabled={disableFeature} max={20}/>
             </Col>
           </Row>
         </Input>
@@ -152,12 +167,13 @@ class FinancingForm extends React.Component {
                 changeBaseData={changeBaseData}
                 value={followUpBorrowingRatePercent}
                 property="followUpBorrowingRatePercent"
+                disabled={disableFeature}
                 addonAfter="%" />
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={followUpBorrowingRatePercent} property="followUpBorrowingRatePercent" multiplier={100} max={15}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={followUpBorrowingRatePercent} property="followUpBorrowingRatePercent" disabled={disableFeature} multiplier={100} max={15}/>
             </Col>
           </Row>
         </Input>
@@ -188,6 +204,7 @@ class FinancingForm extends React.Component {
 }
 
 FinancingForm.propTypes = {
+  disableFeature: PropTypes.bool.isRequired,
   baseData: BaseData.isRequired,
   changeBaseData: PropTypes.func.isRequired,
   equity: PropTypes.number,
@@ -198,6 +215,7 @@ FinancingForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    disableFeature: !state.featureToggle.financingFeature,
     baseData: state.baseData,
     equity: state.prices.equity,
     loan: state.prices.loan,

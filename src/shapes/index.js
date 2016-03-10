@@ -38,6 +38,11 @@ export const Prices = PropTypes.shape({
   specialYearlyPaymentPercent: PropTypes.number, // Jährliche Sondertilgungsrate
 })
 
+export const FeatureToggle = PropTypes.shape({
+  incidentalCostsFeature: PropTypes.bool.isRequired,
+  financingFeature: PropTypes.bool.isRequired,
+})
+
 export const Table = PropTypes.arrayOf(TableRow)
 
 export const TableRow = PropTypes.shape({

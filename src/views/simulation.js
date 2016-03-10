@@ -5,12 +5,12 @@ import { BaseData } from '../shapes/index'
 import { changeBaseDataGrossPrice } from '../actions/index'
 import { Grid, Row, Col, Accordion, Panel } from 'react-bootstrap'
 
-import KPIView from './simulation/kpi'
-import GraphView from './simulation/graph'
-import BaseDataForm from './simulation/baseData'
-import IncidentalCostsForm from './simulation/incidentalCosts'
-import FinancingForm from './simulation/financing'
-import TableView from './simulation/table'
+import BaseDataForm from './parameters/baseData'
+import IncidentalCostsForm from './parameters/incidentalCosts'
+import FinancingForm from './parameters/financing'
+import KPIView from './results/kpi'
+import GraphView from './results/graph'
+import TableView from './results/table'
 
 export default class Simulation extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default class Simulation extends React.Component {
       <Row>
         <Col xs={4} md={3}>
           <Accordion>
-            <Panel header="Kerndaten" defaultExpanded={true}>
+            <Panel header="Grunddaten" defaultExpanded={true}>
               <BaseDataForm/>
             </Panel>
             <Panel header="Nebenkosten" eventKey="3">
