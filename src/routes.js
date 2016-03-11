@@ -4,7 +4,8 @@ import { Provider } from 'react-redux'
 
 import App from './views/app'
 import Simulation from './views/simulation'
-import World from './views/world'
+import FAQ from './views/faq'
+import Imprint from './views/imprint'
 
 import createStore from './store/create'
 import { changeBaseDataGrossPrice } from './actions/index'
@@ -17,7 +18,8 @@ export default (
       <Route path="/" component={App}>
         <IndexRoute component={Simulation}/>
         <Route path="simulation" component={Simulation}/>
-        <Route path="world" component={World}/>
+        <Route path="faq" component={FAQ}/>
+        <Route path="imprint" component={Imprint}/>
       </Route>
     </Router>
   </Provider>
