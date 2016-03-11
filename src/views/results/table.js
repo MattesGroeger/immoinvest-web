@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Panel, Table } from 'react-bootstrap'
 
-import { TableRow } from '../../shapes/index'
+import { TableRow, DevelopmentTableRow } from '../../shapes/index'
 import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
 
 class TableViewRow extends React.Component {
   render() {
     const { year, dept, borrowingRate, amortizationRate, totalRate, remainingDept } = this.props.row
+    const { revenueYearly, costYearly, profitYearly } = this.props.developmentsRow
     return (
       <tr>
         <td>{year}</td>
@@ -16,13 +17,16 @@ class TableViewRow extends React.Component {
         <td><CalculatedCurrencyValue value={amortizationRate}/></td>
         <td><CalculatedCurrencyValue value={totalRate}/></td>
         <td><CalculatedCurrencyValue value={remainingDept} invert={true}/></td>
+        <td><CalculatedCurrencyValue value={revenueYearly} invert={true}/></td>
+        <td><CalculatedCurrencyValue value={costYearly} invert={true}/></td>
       </tr>
     )
   }
 }
 
 TableViewRow.propTypes = {
-  row: TableRow.isRequired
+  row: TableRow.isRequired,
+  developmentsRow: DevelopmentTableRow.isRequired,
 }
 
 class TableViewRowEndOfFixedBorrowingRate extends React.Component {
@@ -31,7 +35,7 @@ class TableViewRowEndOfFixedBorrowingRate extends React.Component {
     return (
       <tr>
         <td></td>
-        <td colSpan={5}>Ende der Zinsbindung, neuer Zinsatz: <CalculatedPercentValue value={followUpBorrowingRatePercent}/></td>
+        <td colSpan={7}>Ende der Zinsbindung, neuer Zinsatz: <CalculatedPercentValue value={followUpBorrowingRatePercent}/></td>
       </tr>
     )
   }
@@ -44,7 +48,8 @@ TableViewRowEndOfFixedBorrowingRate.propTypes = {
 export default class TableView extends React.Component {
 
   render() {
-    var rows = this.props.rows.map((row, i) => <TableViewRow row={row} key={i}/>)
+    const { financingTable, developmentTable } = this.props
+    var rows = financingTable.map((row, i) => <TableViewRow row={row} developmentsRow={developmentTable[i]} key={i}/>)
 
     const { fixedBorrowingRateYears, followUpBorrowingRatePercent, borrowingRateTotalCost, amortizationRateTotalCost } = this.props
     if (fixedBorrowingRateYears > 0) {
@@ -63,6 +68,8 @@ export default class TableView extends React.Component {
               <th>Tilgung</th>
               <th>Gesamt</th>
               <th>Restschuld</th>
+              <th>Einnahmen</th>
+              <th>Unterhalt</th>
             </tr>
           </thead>
           <tbody>
@@ -74,6 +81,8 @@ export default class TableView extends React.Component {
               <td><strong><CalculatedCurrencyValue value={amortizationRateTotalCost} invert={true}/></strong></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
         </Table>
@@ -83,18 +92,19 @@ export default class TableView extends React.Component {
 }
 
 TableView.propTypes = {
-  rows: PropTypes.arrayOf(TableRow),
+  financingTable: PropTypes.arrayOf(TableRow),
   fixedBorrowingRateYears: PropTypes.number.isRequired,
   followUpBorrowingRatePercent: PropTypes.number.isRequired,
 }
 
 function mapStateToProps(state) {
   return {
-    rows: state.table,
+    financingTable: state.table,
+    developmentTable: state.developmentTable,
     fixedBorrowingRateYears: state.baseData.fixedBorrowingRateYears,
     followUpBorrowingRatePercent: state.baseData.followUpBorrowingRatePercent,
     borrowingRateTotalCost: state.table.reduce((prev,elem,i,a) => prev + elem.borrowingRate, 0),
-    amortizationRateTotalCost: state.table.reduce((prev,elem,i,a) => prev + elem.amortizationRate, 0),
+    amortizationRateTotalCost: state.table.reduce((prev,elem,i,a) => prev + elem.amortizationRate, 0)
   }
 }
 

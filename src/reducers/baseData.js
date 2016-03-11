@@ -19,6 +19,12 @@ const initialState = {
   amortizationRatePercent: 0.02,
   followUpBorrowingRatePercent: 0.06,
   specialYearlyPayment: 0,
+
+  investmentPeriod: 40,
+  inflationPercent: 0.02,
+  apportionableHOAFeePercent: 0.65,
+  costFactorPercent: 0.2,
+  yearlyRentIncrease: 0.025,
 }
 
 const updateBaseData = (state, action) => {

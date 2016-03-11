@@ -1,0 +1,5 @@
+--recursive
+--colors
+--require ./test/helper
+--reporter spec
+--globals __CLIENT__,Raven,window

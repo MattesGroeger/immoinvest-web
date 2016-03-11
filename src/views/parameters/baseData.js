@@ -6,6 +6,10 @@ import { BaseData } from '../../shapes/index'
 import { FloatUserInput } from '../../components/userInput'
 
 class BaseDataForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.props.changeBaseData("grossPrice", this.props.baseData.grossPrice)
+  }
 
   render() {
     const { changeBaseData, baseData } = this.props

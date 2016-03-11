@@ -21,6 +21,13 @@ export const BaseData = PropTypes.shape({
   amortizationRatePercent: PropTypes.number, // Tilgungsrate %
   followUpBorrowingRatePercent: PropTypes.number, // Anschlusszinssatz
   specialYearlyPayment: PropTypes.number, // Jährliche Sonderzahlung in €
+
+  // development
+  investmentPeriod: PropTypes.number, // Anlagedauer in Jahren
+  inflationPercent: PropTypes.number, // Inflation %
+  apportionableHOAFeePercent: PropTypes.number, // Umlagefähiger Hausgeldanteil %
+  costFactorPercent: PropTypes.number, // Kostenfaktor auf Basis der Kaltmiete %
+  yearlyRentIncrease: PropTypes.number, // Jährliche Mieterhöhung %
 })
 
 // calculated
@@ -47,9 +54,17 @@ export const Table = PropTypes.arrayOf(TableRow)
 
 export const TableRow = PropTypes.shape({
   year: PropTypes.number.isRequired, // Jahr
+
+  // financing
   dept: PropTypes.number.isRequired, // Schuldenstand
   borrowingRate: PropTypes.number.isRequired, // Rate Zinsen
   amortizationRate: PropTypes.number.isRequired, // Rate Tilgung
   totalRate: PropTypes.number.isRequired, // Rate Gesamt
   remainingDept: PropTypes.number.isRequired, // Restschuld
+})
+
+export const DevelopmentTableRow = PropTypes.shape({
+  revenueYearly: PropTypes.number.isRequired, // Einnahmen pro Jahr
+  costYearly: PropTypes.number.isRequired, // Ausgaben pro Jahr
+  profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr
 })

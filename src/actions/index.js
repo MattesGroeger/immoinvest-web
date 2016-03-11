@@ -1,6 +1,7 @@
 export const CHANGE_BASE_DATA = 'CHANGE_BASE_DATA'
 export const CALCULATE_PRICES = 'CALCULATE_PRICES'
 export const CALCULATE_TABLE = 'CALCULATE_TABLE'
+export const CALCULATE_DEVELOPTMENT_TABLE = 'CALCULATE_DEVELOPTMENT_TABLE'
 export const TOGGLE_FEATURES = 'TOGGLE_FEATURES'
 
 function setBaseData(key, value) {
@@ -26,6 +27,13 @@ function calculateTable(baseData, prices) {
   }
 }
 
+function calculateDevelopmentTable(baseData, prices) {
+  return {
+    type: CALCULATE_DEVELOPTMENT_TABLE,
+    baseData: baseData
+  }
+}
+
 function toggleFeatures(baseData) {
   return {
     type: TOGGLE_FEATURES,
@@ -38,6 +46,7 @@ export function changeBaseData(key, value) {
     dispatch(setBaseData(key, value))
     dispatch(calculatePrices(getState().baseData))
     dispatch(calculateTable(getState().baseData, getState().prices))
+    dispatch(calculateDevelopmentTable(getState().baseData))
     dispatch(toggleFeatures(getState().baseData))
   }
 }
