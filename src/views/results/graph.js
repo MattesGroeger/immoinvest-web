@@ -141,8 +141,8 @@ export default class GraphView extends React.Component {
           <Tab eventKey={1} title="Finanzierung">
             <BarChart width={800} height={300} chartData={chartData} chartOptions={chartOptions}/>
           </Tab>
-          <Tab eventKey={2} title="Nebenkosten">TBD</Tab>
-          <Tab eventKey={3} title="Wertentwicklung">TBD</Tab>
+          <Tab eventKey={2} title="Nebenkosten"><h4>In Arbeit</h4></Tab>
+          <Tab eventKey={3} title="Wertentwicklung"><h4>In Arbeit</h4></Tab>
         </Tabs>
       </Panel>
     )

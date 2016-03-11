@@ -28,25 +28,10 @@ export default class Simulation extends React.Component {
               <FinancingForm/>
             </Panel>
             <Panel header="Steuern" eventKey="4">
-              <ul>
-                <li>Grundstücksanteil in % oder €</li>
-                <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
-                <li>Alleinstehen/Verheirated</li>
-                <li>Zu versteuerndes Einkommen in € (oder persönlicher Steuersatz in %?)</li>
-                <li>Haus- und Grundbesitzer-Haftpflichtversicherung?</li>
-                <li>Grundsteuer?</li>
-              </ul>
+              <h4>In Arbeit</h4>
             </Panel>
             <Panel header="Wertentwicklung" eventKey="5">
-              <ul>
-                <li>Anlagehorizont in Jahren</li>
-                <li>Pauschale für Mietausfall</li>
-                <li>Geschätzte Mietsteigerung/Jahr in %</li>
-                <li>Geschätzte Kostensteigerung/Jahr in %</li>
-                <li>Inflation pro Jahr in %</li>
-                <li>Wertentwicklung Bodenanteil pro Jahr in %</li>
-                <li>Wertentwicklung Wohnung pro Jahr in %</li>
-              </ul>
+              <h4>In Arbeit</h4>
             </Panel>
           </Accordion>
         </Col>
@@ -59,3 +44,24 @@ export default class Simulation extends React.Component {
     )
   }
 }
+
+// Steuern
+// <ul>
+//   <li>Grundstücksanteil in % oder €</li>
+//   <li>Anteil nicht-umlagefähiger Kosten in % oder € (Instandhaltungskosten, Verwaltung, etc.)</li>
+//   <li>Alleinstehen/Verheirated</li>
+//   <li>Zu versteuerndes Einkommen in € (oder persönlicher Steuersatz in %?)</li>
+//   <li>Haus- und Grundbesitzer-Haftpflichtversicherung?</li>
+//   <li>Grundsteuer?</li>
+// </ul>
+
+// Wertentwicklung
+// <ul>
+//   <li>Anlagehorizont in Jahren</li>
+//   <li>Pauschale für Mietausfall</li>
+//   <li>Geschätzte Mietsteigerung/Jahr in %</li>
+//   <li>Geschätzte Kostensteigerung/Jahr in %</li>
+//   <li>Inflation pro Jahr in %</li>
+//   <li>Wertentwicklung Bodenanteil pro Jahr in %</li>
+//   <li>Wertentwicklung Wohnung pro Jahr in %</li>
+// </ul>
