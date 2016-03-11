@@ -49,7 +49,7 @@ class FinancingForm extends React.Component {
     return (
       <form>
         {disableFeature ? warningFeatureDisabled : ""}
-        <Input label="Eigenkapitalquote" wrapperClassName="wrapper">
+        <Input label="Eigenkapital" wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <EquityUserInput

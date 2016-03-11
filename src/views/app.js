@@ -10,7 +10,7 @@ export default class App extends React.Component {
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#">Geldregler</a>
+              <a href="#">Geldregler.de</a>
             </Navbar.Brand>
           </Navbar.Header>
           <Nav>
