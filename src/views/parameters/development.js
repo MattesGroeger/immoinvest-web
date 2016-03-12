@@ -42,7 +42,7 @@ class DevelopmentForm extends React.Component {
     return (
       <form>
         {disableFeature ? warningFeatureDisabled : ""}
-        <Input label={this.titleWithTooltip("Umlagefähiges Hausgeld", "Der Anteil des Hausgelds der über die Nebenkostenabrechnung vom Mieter bezahlt wird. Der Rest wird zum Beispiel für die Instandhaltungs-rücklage oder die Verwaltung aufgewendet und ist vom Vermieter zu tragen.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Umlagefähiges Hausgeld", "Der Anteil des Hausgelds der über die Nebenkostenabrechnung vom Mieter bezahlt wird. Der Rest wird zum Beispiel für die Instandhaltungs-rücklage oder die Verwaltung aufgewendet und ist vom Vermieter zu tragen. Bitte beachten: Es können nur Kosten umgelegt werden, die durch Mieteinnahmen gedeckt sind.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <MultiplyInput
@@ -70,7 +70,7 @@ class DevelopmentForm extends React.Component {
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Jährliche Kosten", "Angenommene jährliche Kosten für Instandhaltungsmaßnahmen am Sondereigentum sowie Schäden durch Mietausfall und Rücklagen. Standardmäßig werden 1% des Kaufpreises angenommen. Der Wert steigt jedes Jahr mit der Inflation.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Jährliche Kosten", "Angenommene jährliche Kosten für Instandhaltungsmaßnahmen am Sondereigentum sowie Schäden durch Mietausfall und Rücklagen. Standardmäßig werden 1% des Kaufpreises angenommen. Der Wert steigt jedes Jahr mit der Inflation (beginnend im ersten Jahr).")} wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <MultiplyInput
@@ -98,7 +98,7 @@ class DevelopmentForm extends React.Component {
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Jährliche Mietsteigerung", "Die zu erwartende Mietsteigerung pro Jahr. Beachten Sie bitte, dass es hierbei Beschränkungen gibt (20% in 3 Jahren, nicht höher als Ortsübliche Vergleichsmiete). In angespannten Wohnlagen liegt die Kappungsgrenze bei 15% in 3 Jahren.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Jährliche Mietsteigerung", "Die zu erwartende Mietsteigerung pro Jahr. Beachten Sie bitte, dass es hierbei Beschränkungen gibt (20% in 3 Jahren, nicht höher als Ortsübliche Vergleichsmiete). In angespannten Wohnlagen liegt die Kappungsgrenze bei 15% in 3 Jahren. Die erste Mieterhöhung wird rechnerisch bereits im 1. Jahr angenommen.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={12}>
               <PercentUserInput
@@ -116,7 +116,7 @@ class DevelopmentForm extends React.Component {
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Inflation", "Die angenommene Inflation pro Jahr. Es empfiehlt sich aktuell einen Wert von 2-3% anzunehmen.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Inflation", "Die angenommene Inflation pro Jahr. Es empfiehlt sich ein Wert von 2-3%.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={12}>
               <PercentUserInput
