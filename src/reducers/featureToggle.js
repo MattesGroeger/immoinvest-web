@@ -11,7 +11,8 @@ export default function prices(state = initialState, action) {
       const hasGrossPrice = action.baseData.grossPrice > 0
       return {
         incidentalCostsFeature: hasGrossPrice,
-        financingFeature: hasGrossPrice
+        financingFeature: hasGrossPrice,
+        developmentFeature: hasGrossPrice,
       }
     default:
       return state

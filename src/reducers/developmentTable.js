@@ -2,19 +2,26 @@ import { CALCULATE_DEVELOPTMENT_TABLE } from '../actions/index'
 
 const initialState = []
 
-function calculateDevelopmentRows(data, baseRent, HOAFee, totalRows = 0, accumulator = []) {
+function multiplyPercentForYear(value = 0, percent, year) {
+  return value * Math.pow(1 + percent, year)
+}
+
+function calculateDevelopmentRows(data, totalRows = 0, accumulator = []) {
   if (accumulator.length >= totalRows) { return accumulator }
 
-  const { inflationPercent, apportionableHOAFeePercent, costFactorPercent, yearlyRentIncrease } = data
+  const { grossPrice, baseRent, inflationPercent, HOAFee, apportionableHOAFeePercent, costFactorPercent, yearlyRentIncrease } = data
+  const currentYear = accumulator.length + 1
 
-  const newBaseRent = baseRent * (1.0 + yearlyRentIncrease)
-  const newHOAFee = HOAFee * (1.0 + inflationPercent)
-  const apportionableHOAFeePerMonth = newHOAFee * apportionableHOAFeePercent
-  const nonApportionableHOAFeePerMonth = newHOAFee - apportionableHOAFeePerMonth
-  const costPerMonth = newBaseRent * costFactorPercent
+  const grossPriceAfterInflation = multiplyPercentForYear(grossPrice, inflationPercent, currentYear)
+  const baseRentAfterIncrease = multiplyPercentForYear(baseRent, yearlyRentIncrease, currentYear)
+  const HOAFeeAfterInflation = multiplyPercentForYear(HOAFee, inflationPercent, currentYear)
 
-  const revenueYearly = newBaseRent * 12
-  const costYearly = (nonApportionableHOAFeePerMonth + costPerMonth) * 12
+  const apportionableHOAFeePerMonth = HOAFeeAfterInflation * apportionableHOAFeePercent
+  const nonApportionableHOAFeePerMonth = HOAFeeAfterInflation - apportionableHOAFeePerMonth
+  const costPerYear = grossPriceAfterInflation * costFactorPercent
+
+  const revenueYearly = baseRentAfterIncrease * 12
+  const costYearly = (nonApportionableHOAFeePerMonth * 12) + costPerYear
 
   accumulator.push({
     revenueYearly: revenueYearly,
@@ -22,14 +29,13 @@ function calculateDevelopmentRows(data, baseRent, HOAFee, totalRows = 0, accumul
     profitYearly: revenueYearly - costYearly,
   })
 
-  return calculateDevelopmentRows(data, newBaseRent, newHOAFee, totalRows, accumulator)
+  return calculateDevelopmentRows(data, totalRows, accumulator)
 }
 
 export default function table(state = initialState, action) {
   switch (action.type) {
     case CALCULATE_DEVELOPTMENT_TABLE:
-      const { baseRent, HOAFee, investmentPeriod } = action.baseData
-      return calculateDevelopmentRows(action.baseData, baseRent, HOAFee, investmentPeriod)
+      return calculateDevelopmentRows(action.baseData, action.baseData.investmentPeriod)
     default:
       return state
   }

@@ -26,7 +26,7 @@ export const BaseData = PropTypes.shape({
   investmentPeriod: PropTypes.number, // Anlagedauer in Jahren
   inflationPercent: PropTypes.number, // Inflation %
   apportionableHOAFeePercent: PropTypes.number, // Umlagefähiger Hausgeldanteil %
-  costFactorPercent: PropTypes.number, // Kostenfaktor auf Basis der Kaltmiete %
+  costFactorPercent: PropTypes.number, // Kostenfaktor auf Basis des Kaufpreises %
   yearlyRentIncrease: PropTypes.number, // Jährliche Mieterhöhung %
 })
 

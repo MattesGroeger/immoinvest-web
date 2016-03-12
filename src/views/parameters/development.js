@@ -12,27 +12,12 @@ class MultiplyInput extends FloatUserInput {
     return super.fromModelValue((value || 0) * (this.props.multiplicant || 0))
   }
   toModelValue(value) {
-    if (this.props.HOAFee == 0) {
+    if (this.props.multiplicant == 0) {
       return 0
     }
     return super.toModelValue(value) / this.props.multiplicant
   }
 }
-
-class SpecialYearlyPaymentInput extends PercentUserInput {
-  fromModelValue(value) {
-    if ((this.props.loan||0) == 0) {
-      return super.fromModelValue(0)
-    }
-    return super.fromModelValue((value || 0) / this.props.loan)
-  }
-  toModelValue(value) {
-    return super.toModelValue(value) * this.props.loan
-  }
-}
-
-SpecialYearlyPaymentInput.propTypes = { loan: PropTypes.number.isRequired }
-SpecialYearlyPaymentInput.defaultProps = { loan: 0, digits: 2 }
 
 class DevelopmentForm extends React.Component {
 
@@ -45,9 +30,8 @@ class DevelopmentForm extends React.Component {
   }
 
   render() {
-    const { apportionableHOAFeePercent, HOAFee, costFactorPercent, baseRent, yearlyRentIncrease } = this.props.baseData
-    const { grossPrice, equityPercent, fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, amortizationRatePercent, specialYearlyPayment } = this.props.baseData
-    const { disableFeature, changeBaseData, equity, loan, incidentalCosts, specialYearlyPaymentPercent } = this.props
+    const { inflationPercent, apportionableHOAFeePercent, HOAFee, costFactorPercent, grossPrice, yearlyRentIncrease } = this.props.baseData
+    const { disableFeature, changeBaseData } = this.props
 
     const warningFeatureDisabled = (
       <Alert bsStyle="warning">
@@ -86,7 +70,7 @@ class DevelopmentForm extends React.Component {
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Monatliche Kosten", "Angenommene monatliche Kosten für Instandhaltungsmaßnahmen am Sondereigentum sowie Schäden durch Mietausfall und Rücklagen. Standardmäßig werden 20% der Kaltmiete angenommen.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Jährliche Kosten", "Angenommene jährliche Kosten für Instandhaltungsmaßnahmen am Sondereigentum sowie Schäden durch Mietausfall und Rücklagen. Standardmäßig werden 1% des Kaufpreises angenommen. Der Wert steigt jedes Jahr mit der Inflation.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <MultiplyInput
@@ -94,7 +78,7 @@ class DevelopmentForm extends React.Component {
                 value={costFactorPercent}
                 property="costFactorPercent"
                 disabled={disableFeature}
-                multiplicant={baseRent}
+                multiplicant={grossPrice}
                 addonAfter="€" />
             </Col>
             <Col xs={6}>
@@ -109,7 +93,7 @@ class DevelopmentForm extends React.Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={costFactorPercent} property="costFactorPercent" disabled={disableFeature} multiplier={100}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={costFactorPercent} property="costFactorPercent" disabled={disableFeature} multiplier={100} max={2}/>
             </Col>
           </Row>
         </Input>
@@ -128,6 +112,24 @@ class DevelopmentForm extends React.Component {
           <Row>
             <Col xs={12}>
               <RangeUserInput changeBaseData={changeBaseData} value={yearlyRentIncrease} property="yearlyRentIncrease" disabled={disableFeature} multiplier={100} max={6}/>
+            </Col>
+          </Row>
+        </Input>
+
+        <Input label={this.titleWithTooltip("Inflation", "Die angenommene Inflation pro Jahr. Es empfiehlt sich aktuell einen Wert von 2-3% anzunehmen.")} wrapperClassName="wrapper">
+          <Row>
+            <Col xs={12}>
+              <PercentUserInput
+                changeBaseData={changeBaseData}
+                value={inflationPercent}
+                property="inflationPercent"
+                disabled={disableFeature}
+                addonAfter="%" />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <RangeUserInput changeBaseData={changeBaseData} value={inflationPercent} property="inflationPercent" disabled={disableFeature} multiplier={100} max={6}/>
             </Col>
           </Row>
         </Input>
@@ -160,22 +162,12 @@ class DevelopmentForm extends React.Component {
 DevelopmentForm.propTypes = {
   disableFeature: PropTypes.bool.isRequired,
   baseData: BaseData.isRequired,
-  changeBaseData: PropTypes.func.isRequired,
-  equity: PropTypes.number,
-  loan: PropTypes.number,
-  incidentalCosts: PropTypes.number,
-  specialYearlyPaymentPercent: PropTypes.number,
 }
 
 function mapStateToProps(state) {
   return {
     baseData: state.baseData,
-
-    disableFeature: !state.featureToggle.financingFeature,
-    equity: state.prices.equity,
-    loan: state.prices.loan,
-    incidentalCosts: state.prices.incidentalCosts,
-    specialYearlyPaymentPercent: state.prices.specialYearlyPaymentPercent,
+    disableFeature: !state.featureToggle.developmentFeature,
   }
 }
 

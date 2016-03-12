@@ -23,7 +23,7 @@ const initialState = {
   investmentPeriod: 40,
   inflationPercent: 0.02,
   apportionableHOAFeePercent: 0.65,
-  costFactorPercent: 0.2,
+  costFactorPercent: 0.01,
   yearlyRentIncrease: 0.025,
 }
 

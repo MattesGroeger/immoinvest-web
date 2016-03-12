@@ -23,17 +23,17 @@ export default class Simulation extends React.Component {
             <Panel header="Grunddaten" defaultExpanded={true}>
               <BaseDataForm/>
             </Panel>
-            <Panel header="Nebenkosten" eventKey="3">
+            <Panel header="Nebenkosten" eventKey="2">
               <IncidentalCostsForm/>
             </Panel>
-            <Panel header="Finanzierung" eventKey="2">
+            <Panel header="Finanzierung" eventKey="3">
               <FinancingForm/>
             </Panel>
-            <Panel header="Steuern" eventKey="4">
-              <h4>In Arbeit</h4>
-            </Panel>
-            <Panel header="Wertentwicklung" eventKey="5">
+            <Panel header="Wertentwicklung" eventKey="4">
               <DevelopmentForm/>
+            </Panel>
+            <Panel header="Steuern" eventKey="5">
+              <h4>In Arbeit</h4>
             </Panel>
           </Accordion>
         </Col>
