@@ -6,6 +6,17 @@ function multiplyPercentForYear(value = 0, percent, year) {
   return value * Math.pow(1 + percent, year)
 }
 
+// Make sure the apportionableHOAFee is greater or equal the baseRent
+// Example:
+// BaseRent: 0€                 BaseRent: 200€                BaseRent: 100€
+// HOAFee: 200€                 HOAFee: 200€                  HOAFee: 200€
+// HOAFeePercent: 75%           HOAFeePercent: 75%            HOAFeePercent: 75%
+// ApportionableHOAFee: 150€    ApportionableHOAFee: 150€     ApportionableHOAFee: 150€
+// Result: 0€                   Result: 150€                  Result: 100€
+function calculateApportionableHOAFeePerMonth(HOAFee, HOAFeePercent, baseRent) {
+  return Math.min(baseRent, HOAFee * HOAFeePercent)
+}
+
 function calculateDevelopmentRows(data, totalRows = 0, accumulator = []) {
   if (accumulator.length >= totalRows) { return accumulator }
 
@@ -16,7 +27,7 @@ function calculateDevelopmentRows(data, totalRows = 0, accumulator = []) {
   const baseRentAfterIncrease = multiplyPercentForYear(baseRent, yearlyRentIncrease, currentYear)
   const HOAFeeAfterInflation = multiplyPercentForYear(HOAFee, inflationPercent, currentYear)
 
-  const apportionableHOAFeePerMonth = HOAFeeAfterInflation * apportionableHOAFeePercent
+  const apportionableHOAFeePerMonth = calculateApportionableHOAFeePerMonth(HOAFeeAfterInflation, apportionableHOAFeePercent, baseRentAfterIncrease)
   const nonApportionableHOAFeePerMonth = HOAFeeAfterInflation - apportionableHOAFeePerMonth
   const costPerYear = grossPriceAfterInflation * costFactorPercent
 
