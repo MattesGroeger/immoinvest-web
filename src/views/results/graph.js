@@ -40,37 +40,54 @@ export default class GraphView extends React.Component {
     const { table, developmentTable } = this.props
     const chartData = {
             labels: table.map((row) => row.year),
-            datasets: [{
-              type: 'bar',
-              label: "Zinsen",
-              data: table.map((row) => -row.borrowingRate),
+            datasets: [
+            {
+              label: "Einnahmen",
+              type:'bar',
+              data: developmentTable.map((row, i) => row.revenueYearly),
               fill: false,
-              borderColor: '#AADEF0',
-              backgroundColor: '#AADEF0',
-              yAxisID: 'y-axis-1',
+              // borderColor: '#6fcb9f',
+              borderWidth: 0,
+              backgroundColor: '#ADE3F4',
+              yAxisID: 'y-axis-1'
+            }, {
+              label: "Zins",
+              type:'bar',
+              data: table.map((row) => -row.borrowingRate),
+              pointBorderWidth: 0,
+              fill: false,
+              // borderColor: '#AADEF0',
+              borderWidth: 0,
+              backgroundColor: '#EBBFFF',
+              yAxisID: 'y-axis-1'
             }, {
               label: "Tilgung",
               type:'bar',
               data: table.map((row) => -row.amortizationRate),
+              pointBorderWidth: 0,
               fill: false,
-              borderColor: '#FFDA82',
-              backgroundColor: '#FFDA82',
+              // borderColor: '#FCE88B',
+              borderWidth: 0,
+              backgroundColor: '#DBA4FF',
               yAxisID: 'y-axis-1'
             }, {
+              label: "Unterhalt",
+              type:'bar',
+              data: developmentTable.map((row) => -row.costYearly),
+              fill: false,
+              // borderColor: '#F26363',
+              borderWidth: 0,
+              backgroundColor: '#FFA4D7',
+              yAxisID: 'y-axis-1'
+            }, {
+              type: 'line',
               label: "Gewinn",
-              type:'bar',
-              data: developmentTable.map((row, i) => Math.max(row.profitYearly - table[i].totalRate,0)),
+              data: developmentTable.map((row, i) => row.profitYearly - table[i].totalRate),
+              radius: 0,
               fill: false,
-              borderColor: '#C5E39F',
-              backgroundColor: '#C5E39F',
-              yAxisID: 'y-axis-1'
-            }, {
-              label: "Verlust",
-              type:'bar',
-              data: developmentTable.map((row, i) => Math.min(row.profitYearly - table[i].totalRate,0)),
-              fill: false,
-              borderColor: '#F26363',
-              backgroundColor: '#F26363',
+              borderColor: '#474747',
+              borderWidth: 0,
+              backgroundColor: '#474747',
               yAxisID: 'y-axis-1'
             }
             // , {
@@ -135,17 +152,17 @@ export default class GraphView extends React.Component {
             }
             // ,{
             //   type: "linear",
-            //   display: true,
-            //   position: "right",
+            //   display: false,
+            //   position: "left",
             //   id: "y-axis-2",
             //   gridLines:{
             //     display: false
             //   },
             //   labels: {
-            //     show:true,
+            //     show:false,
             //   },
             //   scaleLabel: {
-            //     display: true,
+            //     display: false,
             //     labelString: "Restschuld"
             //   },
             //   ticks: {

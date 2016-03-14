@@ -60,10 +60,6 @@ export default class Simulation extends React.Component {
 // Wertentwicklung
 // <ul>
 //   <li>Anlagehorizont in Jahren</li>
-//   <li>Pauschale für Mietausfall</li>
-//   <li>Geschätzte Mietsteigerung/Jahr in %</li>
-//   <li>Geschätzte Kostensteigerung/Jahr in %</li>
-//   <li>Inflation pro Jahr in %</li>
 //   <li>Wertentwicklung Bodenanteil pro Jahr in %</li>
 //   <li>Wertentwicklung Wohnung pro Jahr in %</li>
 // </ul>
