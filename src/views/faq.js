@@ -18,7 +18,7 @@ export default class World extends React.Component {
           </Panel>
           <Panel header="Mir fehlt folgende Funktionalität...">
             <p>Sicherlich werden Ihnen Funktionen fehlen oder noch nicht optimal funktionieren. Das Projekt steht noch ganz am Anfang und wird kontinuierlich weiter entwickelt.</p>
-            <p>Bitte schreiben Sie Ihren Verbesserungsvorschlag an <a href="mailto:support@geldregler.de">support@geldregler.de</a>. Ich freue mich auf Ihr Feedback.</p>
+            <p>Bitte schreiben Sie Ihren Verbesserungsvorschlag an <a href="mailto:immoinvest@mattes-groeger.de">immoinvest@mattes-groeger.de</a>. Ich freue mich auf Ihr Feedback.</p>
           </Panel>
         </Col>
       </Row>

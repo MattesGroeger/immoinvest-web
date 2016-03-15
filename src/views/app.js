@@ -9,7 +9,7 @@ export default class App extends React.Component {
       <Grid>
         <Navbar fixedTop>
           <Navbar.Brand className="navbar-right">
-            <IndexLink to="/" activeClassName="active">Geldregler.de</IndexLink>
+            <IndexLink to="/" activeClassName="active">Immoinvest</IndexLink>
           </Navbar.Brand>
           <Nav>
             <IndexLinkContainer to="/" activeClassName="active">

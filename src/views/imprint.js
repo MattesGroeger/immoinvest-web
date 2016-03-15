@@ -40,9 +40,7 @@ export default class World extends React.Component {
             </p>
             <hr/>
             <h4>Kontakt</h4>
-            <p><a href="mailto:info@geldregler.de">info@geldregler.de</a></p>
-            <p><a href="https://www.facebook.com/geldregler" target="_blank">Facebook</a></p>
-            <p><a href="https://www.twitter.com/geldregler" target="_blank">Twitter</a></p>
+            <p><a href="mailto:immoinvest@mattes-groeger.de">immoinvest@mattes-groeger.de</a></p>
           </Panel>
         </Col>
       </Row>
