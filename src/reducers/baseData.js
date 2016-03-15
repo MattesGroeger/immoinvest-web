@@ -25,6 +25,9 @@ const initialState = {
   apportionableHOAFeePercent: 0.65,
   costFactorPercent: 0.01,
   yearlyRentIncrease: 0.025,
+  landPortionPercent: 0.25,
+  landDevelopmentPercent: 0.02,
+  flatDevelopmentPercent: -0.02,
 }
 
 const updateBaseData = (state, action) => {

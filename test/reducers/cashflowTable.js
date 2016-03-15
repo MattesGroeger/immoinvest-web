@@ -1,13 +1,13 @@
 import { expect } from 'chai'
 
-import reducer from '../../src/reducers/developmentTable'
-import { CALCULATE_DEVELOPTMENT_TABLE } from '../../src/actions/index'
+import reducer from '../../src/reducers/cashflowTable'
+import { CALCULATE_CASHFLOW_TABLE } from '../../src/actions/index'
 
 var assert = require('assert');
 
 describe('Reducer', function() {
 
-  it('should calculate developments', function () {
+  it('should calculate cashflow', function () {
     const baseData = {
       investmentPeriod: 2,
       grossPrice: 72500,
@@ -20,7 +20,7 @@ describe('Reducer', function() {
     }
 
     const result = reducer(undefined, {
-      type: CALCULATE_DEVELOPTMENT_TABLE,
+      type: CALCULATE_CASHFLOW_TABLE,
       baseData: baseData
     })
 
@@ -52,7 +52,7 @@ describe('Reducer', function() {
     }
 
     const result = reducer(undefined, {
-      type: CALCULATE_DEVELOPTMENT_TABLE,
+      type: CALCULATE_CASHFLOW_TABLE,
       baseData: baseData
     })
 
@@ -83,7 +83,7 @@ describe('Reducer', function() {
     }
 
     const result = reducer(undefined, {
-      type: CALCULATE_DEVELOPTMENT_TABLE,
+      type: CALCULATE_CASHFLOW_TABLE,
       baseData: baseData
     })
 
@@ -109,7 +109,7 @@ describe('Reducer', function() {
     }
 
     const result = reducer(undefined, {
-      type: CALCULATE_DEVELOPTMENT_TABLE,
+      type: CALCULATE_CASHFLOW_TABLE,
       baseData: baseData
     })
 
@@ -134,7 +134,7 @@ describe('Reducer', function() {
     }
 
     const result = reducer(undefined, {
-      type: CALCULATE_DEVELOPTMENT_TABLE,
+      type: CALCULATE_CASHFLOW_TABLE,
       baseData: baseData
     })
 

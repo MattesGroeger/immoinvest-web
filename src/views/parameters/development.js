@@ -4,20 +4,7 @@ import { Alert, Row, Col, Input, Popover, OverlayTrigger, Button, Glyphicon } fr
 
 import { BaseData } from '../../shapes/index'
 import { changeBaseData } from '../../actions/index'
-import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
-import { PercentUserInput, IntUserInput, FloatUserInput, RangeUserInput } from '../../components/userInput'
-
-class MultiplyInput extends FloatUserInput {
-  fromModelValue(value) {
-    return super.fromModelValue((value || 0) * (this.props.multiplicant || 0))
-  }
-  toModelValue(value) {
-    if (this.props.multiplicant == 0) {
-      return 0
-    }
-    return super.toModelValue(value) / this.props.multiplicant
-  }
-}
+import { PercentUserInput, MultiplyInput, RangeUserInput } from '../../components/userInput'
 
 class DevelopmentForm extends React.Component {
 
@@ -30,7 +17,7 @@ class DevelopmentForm extends React.Component {
   }
 
   render() {
-    const { inflationPercent, apportionableHOAFeePercent, HOAFee, costFactorPercent, grossPrice, yearlyRentIncrease } = this.props.baseData
+    const { grossPrice, landPortionPercent, landDevelopmentPercent, flatDevelopmentPercent } = this.props.baseData
     const { disableFeature, changeBaseData } = this.props
 
     const warningFeatureDisabled = (
@@ -42,41 +29,13 @@ class DevelopmentForm extends React.Component {
     return (
       <form>
         {disableFeature ? warningFeatureDisabled : ""}
-        <Input label={this.titleWithTooltip("Umlagefähiges Hausgeld", "Der Anteil des Hausgelds der über die Nebenkostenabrechnung vom Mieter bezahlt wird. Der Rest wird zum Beispiel für die Instandhaltungs-rücklage oder die Verwaltung aufgewendet und ist vom Vermieter zu tragen. Bitte beachten: Es können nur Kosten umgelegt werden, die durch Mieteinnahmen gedeckt sind.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Anteil Boden", "Bei jedem Erwerb wird in der Regel auch ein Bodenanteil mit gekauft. Dieser Anteil ist wichtig für die Besteuerung sowie die Wertentwicklung.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <MultiplyInput
                 changeBaseData={changeBaseData}
-                value={apportionableHOAFeePercent}
-                property="apportionableHOAFeePercent"
-                disabled={disableFeature}
-                multiplicant={HOAFee}
-                addonAfter="€" />
-            </Col>
-            <Col xs={6}>
-              <PercentUserInput
-                changeBaseData={changeBaseData}
-                value={apportionableHOAFeePercent}
-                property="apportionableHOAFeePercent"
-                disabled={disableFeature}
-                size={6}
-                addonAfter="%"/>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={apportionableHOAFeePercent} property="apportionableHOAFeePercent" disabled={disableFeature} multiplier={100}/>
-            </Col>
-          </Row>
-        </Input>
-
-        <Input label={this.titleWithTooltip("Jährliche Kosten", "Angenommene jährliche Kosten für Instandhaltungsmaßnahmen am Sondereigentum sowie Schäden durch Mietausfall und Rücklagen. Standardmäßig werden 1% des Kaufpreises angenommen. Der Wert steigt jedes Jahr mit der Inflation (beginnend im ersten Jahr).")} wrapperClassName="wrapper">
-          <Row>
-            <Col xs={6}>
-              <MultiplyInput
-                changeBaseData={changeBaseData}
-                value={costFactorPercent}
-                property="costFactorPercent"
+                value={landPortionPercent}
+                property="landPortionPercent"
                 disabled={disableFeature}
                 multiplicant={grossPrice}
                 addonAfter="€" />
@@ -84,8 +43,8 @@ class DevelopmentForm extends React.Component {
             <Col xs={6}>
               <PercentUserInput
                 changeBaseData={changeBaseData}
-                value={costFactorPercent}
-                property="costFactorPercent"
+                value={landPortionPercent}
+                property="landPortionPercent"
                 disabled={disableFeature}
                 size={6}
                 addonAfter="%"/>
@@ -93,43 +52,45 @@ class DevelopmentForm extends React.Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={costFactorPercent} property="costFactorPercent" disabled={disableFeature} multiplier={100} max={2}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={landPortionPercent} property="landPortionPercent" disabled={disableFeature} multiplier={100}/>
             </Col>
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Jährliche Mietsteigerung", "Die zu erwartende Mietsteigerung pro Jahr. Beachten Sie bitte, dass es hierbei Beschränkungen gibt (20% in 3 Jahren, nicht höher als Ortsübliche Vergleichsmiete). In angespannten Wohnlagen liegt die Kappungsgrenze bei 15% in 3 Jahren. Die erste Mieterhöhung wird rechnerisch bereits im 1. Jahr angenommen.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Boden/Jahr", "Hier wird die zukünftige Wertentwicklung des Bodens angenommen. Je nach Lage kann sich der Boden unabhängig von der Wohnung entwickeln. In Ballungsräumen kann der Bodenwert viel stärker steigen als in strukturschwachen Regionen.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={12}>
               <PercentUserInput
                 changeBaseData={changeBaseData}
-                value={yearlyRentIncrease}
-                property="yearlyRentIncrease"
+                value={landDevelopmentPercent}
+                property="landDevelopmentPercent"
                 disabled={disableFeature}
-                addonAfter="%" />
+                size={6}
+                addonAfter="%"/>
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={yearlyRentIncrease} property="yearlyRentIncrease" disabled={disableFeature} multiplier={100} max={6}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={landDevelopmentPercent} property="landDevelopmentPercent" disabled={disableFeature} multiplier={100} min={-5} max={5}/>
             </Col>
           </Row>
         </Input>
 
-        <Input label={this.titleWithTooltip("Inflation", "Die angenommene Inflation pro Jahr. Es empfiehlt sich ein Wert von 2-3%.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Wohnung/Jahr", "Der Wert der Wohnung nimmt in der Regel ab da durch die zunehmende Alterung erhöhter Sanierungsbedarf entsteht. Oftmals werden Instandhaltungsmaßnahmen hinausgezögert was sich negativ auf die Wertentwicklung auswirken kann.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={12}>
               <PercentUserInput
                 changeBaseData={changeBaseData}
-                value={inflationPercent}
-                property="inflationPercent"
+                value={flatDevelopmentPercent}
+                property="flatDevelopmentPercent"
                 disabled={disableFeature}
-                addonAfter="%" />
+                size={6}
+                addonAfter="%"/>
             </Col>
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={inflationPercent} property="inflationPercent" disabled={disableFeature} multiplier={100} max={6}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={flatDevelopmentPercent} property="flatDevelopmentPercent" disabled={disableFeature} multiplier={100} min={-5} max={5}/>
             </Col>
           </Row>
         </Input>

@@ -84,6 +84,21 @@ export class FloatUserInput extends UserInput {
 FloatUserInput.propTypes = { digits: PropTypes.number }
 FloatUserInput.defaultProps = { digits: 2 }
 
+export class MultiplyInput extends FloatUserInput {
+  fromModelValue(value) {
+    return super.fromModelValue((value || 0) * (this.props.multiplicant || 0))
+  }
+  toModelValue(value) {
+    if (this.props.multiplicant == 0) {
+      return 0
+    }
+    return super.toModelValue(value) / this.props.multiplicant
+  }
+}
+
+MultiplyInput.propTypes = { multiplicant: PropTypes.number }
+MultiplyInput.defaultProps = { multiplicant: 1 }
+
 /**
  * PercentUserInput
  */
@@ -134,11 +149,14 @@ export class RangeUserInput extends UserInput {
 
   fromModelValue(value) {
     if (value == undefined) { return "" }
-    return (Math.min((value * 100) / this.props.max * this.props.multiplier, 100)).toFixed(0)
+    const maxRange = this.props.max - this.props.min
+    const newValue = ((value * this.props.multiplier) - this.props.min) / maxRange
+    return Math.max(Math.min(newValue * this.props.multiplier, 100), 0).toFixed(0)
   }
 
   toModelValue(value) {
-    return parseFloat(value) * this.props.max / 100 / this.props.multiplier
+    const maxRange = (this.props.max - this.props.min) / this.props.multiplier
+    return (parseFloat(value) * maxRange + this.props.min) / this.props.multiplier
   }
 
   render() {

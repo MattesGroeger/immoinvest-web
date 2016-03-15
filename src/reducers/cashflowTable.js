@@ -1,4 +1,4 @@
-import { CALCULATE_DEVELOPTMENT_TABLE } from '../actions/index'
+import { CALCULATE_CASHFLOW_TABLE } from '../actions/index'
 
 const initialState = []
 
@@ -17,7 +17,7 @@ function calculateApportionableHOAFeePerMonth(HOAFee, HOAFeePercent, baseRent) {
   return Math.min(baseRent, HOAFee * HOAFeePercent)
 }
 
-function calculateDevelopmentRows(data, totalRows = 0, accumulator = []) {
+function calculateCashflowRows(data, totalRows = 0, accumulator = []) {
   if (accumulator.length >= totalRows) { return accumulator }
 
   const { grossPrice, baseRent, inflationPercent, HOAFee, apportionableHOAFeePercent, costFactorPercent, yearlyRentIncrease } = data
@@ -40,13 +40,13 @@ function calculateDevelopmentRows(data, totalRows = 0, accumulator = []) {
     profitYearly: revenueYearly - costYearly,
   })
 
-  return calculateDevelopmentRows(data, totalRows, accumulator)
+  return calculateCashflowRows(data, totalRows, accumulator)
 }
 
 export default function table(state = initialState, action) {
   switch (action.type) {
-    case CALCULATE_DEVELOPTMENT_TABLE:
-      return calculateDevelopmentRows(action.baseData, action.baseData.investmentPeriod)
+    case CALCULATE_CASHFLOW_TABLE:
+      return calculateCashflowRows(action.baseData, action.baseData.investmentPeriod)
     default:
       return state
   }

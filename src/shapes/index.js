@@ -28,6 +28,9 @@ export const BaseData = PropTypes.shape({
   apportionableHOAFeePercent: PropTypes.number, // Umlagefähiger Hausgeldanteil %
   costFactorPercent: PropTypes.number, // Kostenfaktor auf Basis des Kaufpreises %
   yearlyRentIncrease: PropTypes.number, // Jährliche Mieterhöhung %
+  landPortionPercent: PropTypes.number, // Bodenanteil %
+  landDevelopmentPercent: PropTypes.number, // Wertentwicklung Boden %
+  flatDevelopmentPercent: PropTypes.number, // Wertentwicklung Wohnung %
 })
 
 // calculated
@@ -63,7 +66,7 @@ export const TableRow = PropTypes.shape({
   remainingDept: PropTypes.number.isRequired, // Restschuld
 })
 
-export const DevelopmentTableRow = PropTypes.shape({
+export const CashflowTableRow = PropTypes.shape({
   revenueYearly: PropTypes.number.isRequired, // Einnahmen pro Jahr
   costYearly: PropTypes.number.isRequired, // Ausgaben pro Jahr
   profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr

@@ -8,6 +8,7 @@ import { Grid, Row, Col, Accordion, Panel } from 'react-bootstrap'
 import BaseDataForm from './parameters/baseData'
 import IncidentalCostsForm from './parameters/incidentalCosts'
 import FinancingForm from './parameters/financing'
+import CashflowForm from './parameters/cashflow'
 import DevelopmentForm from './parameters/development'
 
 import KPIView from './results/kpi'
@@ -29,10 +30,13 @@ export default class Simulation extends React.Component {
             <Panel header="Finanzierung" eventKey="3">
               <FinancingForm/>
             </Panel>
-            <Panel header="Wertentwicklung" eventKey="4">
+            <Panel header="Cashflow" eventKey="4">
+              <CashflowForm/>
+            </Panel>
+            <Panel header="Wertentwicklung" eventKey="5">
               <DevelopmentForm/>
             </Panel>
-            <Panel header="Steuern" eventKey="5">
+            <Panel header="Steuern" eventKey="6">
               <h4>In Arbeit</h4>
             </Panel>
           </Accordion>
