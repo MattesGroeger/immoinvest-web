@@ -151,12 +151,12 @@ export class RangeUserInput extends UserInput {
     if (value == undefined) { return "" }
     const maxRange = this.props.max - this.props.min
     const newValue = ((value * this.props.multiplier) - this.props.min) / maxRange
-    return Math.max(Math.min(newValue * this.props.multiplier, 100), 0).toFixed(0)
+    return Math.max(Math.min(newValue * 100, 100), 0).toFixed(0)
   }
 
   toModelValue(value) {
-    const maxRange = (this.props.max - this.props.min) / this.props.multiplier
-    return (parseFloat(value) * maxRange + this.props.min) / this.props.multiplier
+    const maxRange = this.props.max - this.props.min
+    return ((parseFloat(value) / 100 * maxRange) + this.props.min) / this.props.multiplier
   }
 
   render() {
