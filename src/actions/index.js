@@ -1,6 +1,6 @@
 export const CHANGE_BASE_DATA = 'CHANGE_BASE_DATA'
 export const CALCULATE_PRICES = 'CALCULATE_PRICES'
-export const CALCULATE_TABLE = 'CALCULATE_TABLE'
+export const CALCULATE_FINANCING_TABLE = 'CALCULATE_FINANCING_TABLE'
 export const CALCULATE_CASHFLOW_TABLE = 'CALCULATE_CASHFLOW_TABLE'
 export const CALCULATE_TAX_TABLE = 'CALCULATE_TAX_TABLE'
 export const CALCULATE_PROFIT_TABLE = 'CALCULATE_PROFIT_TABLE'
@@ -21,9 +21,9 @@ function calculatePrices(baseData) {
   }
 }
 
-function calculateTable(baseData, prices) {
+function calculateFinancingTable(baseData, prices) {
   return {
-    type: CALCULATE_TABLE,
+    type: CALCULATE_FINANCING_TABLE,
     baseData: baseData,
     prices: prices
   }
@@ -67,10 +67,10 @@ export function changeBaseData(key, value) {
   return (dispatch, getState) => {
     dispatch(setBaseData(key, value))
     dispatch(calculatePrices(getState().baseData))
-    dispatch(calculateTable(getState().baseData, getState().prices))
+    dispatch(calculateFinancingTable(getState().baseData, getState().prices))
     dispatch(calculateCashflowTable(getState().baseData))
-    dispatch(calculateTaxTable(getState().baseData, getState().prices, getState().table, getState().cashflowTable))
-    dispatch(calculateProfitTable(getState().baseData, getState().table, getState().cashflowTable, getState().taxTable))
+    dispatch(calculateTaxTable(getState().baseData, getState().prices, getState().financingTable, getState().cashflowTable))
+    dispatch(calculateProfitTable(getState().baseData, getState().financingTable, getState().cashflowTable, getState().taxTable))
     dispatch(toggleFeatures(getState().baseData))
   }
 }

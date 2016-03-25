@@ -104,14 +104,14 @@ TableView.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    financingTable: state.table,
+    financingTable: state.financingTable,
     cashflowTable: state.cashflowTable,
     taxTable: state.taxTable,
     profitTable: state.profitTable,
     fixedBorrowingRateYears: state.baseData.fixedBorrowingRateYears,
     followUpBorrowingRatePercent: state.baseData.followUpBorrowingRatePercent,
-    borrowingRateTotalCost: state.table.reduce((prev,elem,i,a) => prev + elem.borrowingRate, 0),
-    amortizationRateTotalCost: state.table.reduce((prev,elem,i,a) => prev + elem.amortizationRate, 0)
+    borrowingRateTotalCost: state.financingTable.reduce((prev,elem,i,a) => prev + elem.borrowingRate, 0),
+    amortizationRateTotalCost: state.financingTable.reduce((prev,elem,i,a) => prev + elem.amortizationRate, 0)
   }
 }
 

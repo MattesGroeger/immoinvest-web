@@ -37,9 +37,9 @@ class BarChart extends React.Component {
 export default class GraphView extends React.Component {
 
   render() {
-    const { table, cashflowTable, taxTable, profitTable } = this.props
+    const { financingTable, cashflowTable, taxTable, profitTable } = this.props
     const chartData = {
-            labels: table.map((row) => row.year),
+            labels: financingTable.map((row) => row.year),
             datasets: [
             {
               label: "Einnahmen",
@@ -53,7 +53,7 @@ export default class GraphView extends React.Component {
             }, {
               label: "Zins",
               type:'bar',
-              data: table.map((row) => -row.borrowingRate),
+              data: financingTable.map((row) => -row.borrowingRate),
               pointBorderWidth: 0,
               fill: false,
               // borderColor: '#AADEF0',
@@ -63,7 +63,7 @@ export default class GraphView extends React.Component {
             }, {
               label: "Tilgung",
               type:'bar',
-              data: table.map((row) => -row.amortizationRate),
+              data: financingTable.map((row) => -row.amortizationRate),
               pointBorderWidth: 0,
               fill: false,
               // borderColor: '#FCE88B',
@@ -102,7 +102,7 @@ export default class GraphView extends React.Component {
             // , {
             //   label: "Restschuld",
             //   type:'line',
-            //   data: table.map((row) => row.dept),
+            //   data: financingTable.map((row) => row.dept),
             //   fill: false,
             //   borderColor: '#A80000',
             //   backgroundColor: '#A80000',
@@ -191,7 +191,7 @@ export default class GraphView extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    table: state.table,
+    financingTable: state.financingTable,
     cashflowTable: state.cashflowTable,
     profitTable: state.profitTable,
     taxTable: state.taxTable,

@@ -1,6 +1,6 @@
 import update from 'react-addons-update'
 
-import { CALCULATE_TABLE } from '../actions/index'
+import { CALCULATE_FINANCING_TABLE } from '../actions/index'
 
 const initialState = calculateTable(40)
 
@@ -48,7 +48,7 @@ function deptAfterYears(dept, years, monthlyRate, borrowingRatePercent, specialY
 
 export default function prices(state = initialState, action) {
   switch (action.type) {
-    case CALCULATE_TABLE:
+    case CALCULATE_FINANCING_TABLE:
       const { fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment } = action.baseData
       const { loan, monthlyRate, monthlyFollowUpRate } = action.prices
       return calculateTable(40, loan || 0, monthlyRate || 0, monthlyFollowUpRate || 0, fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment)
