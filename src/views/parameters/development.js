@@ -97,27 +97,6 @@ class DevelopmentForm extends React.Component {
       </form>
     )
   }
-
-  linkWithState(key, subkey) {
-    return {
-      value: this.props[key][subkey],
-      requestChange: function(value) {
-        this.props.changeBaseDataObject(key, subkey, value)
-      }.bind(this)
-    }
-  }
-
-  updateIntegerValue(property, event) {
-    this.props.changeBaseData(property, parseInt(event.target.value))
-  }
-
-  updateCurrencyValue(property, event) {
-    this.props.changeBaseData(property, parseFloat(event.target.value.replace(",",".")))
-  }
-
-  updatePercentValue(property, event) {
-    this.props.changeBaseData(property, parseFloat(event.target.value.replace(",","."))/100)
-  }
 }
 
 DevelopmentForm.propTypes = {

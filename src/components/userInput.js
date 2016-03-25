@@ -156,7 +156,8 @@ export class RangeUserInput extends UserInput {
 
   toModelValue(value) {
     const maxRange = this.props.max - this.props.min
-    return ((parseFloat(value) / 100 * maxRange) + this.props.min) / this.props.multiplier
+    const modelValue = ((parseFloat(value) / 100 * maxRange) + this.props.min) / this.props.multiplier
+    return this.props.round ? Math.round(modelValue) : modelValue
   }
 
   render() {
@@ -170,5 +171,5 @@ export class RangeUserInput extends UserInput {
   }
 }
 
-RangeUserInput.propTypes = { min: PropTypes.number, max: PropTypes.number, multiplier: PropTypes.number }
-RangeUserInput.defaultProps = { min: 0, max: 100, multiplier: 1 }
+RangeUserInput.propTypes = { min: PropTypes.number, max: PropTypes.number, multiplier: PropTypes.number, round: PropTypes.boolean }
+RangeUserInput.defaultProps = { min: 0, max: 100, multiplier: 1, round: false }
