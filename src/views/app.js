@@ -1,9 +1,18 @@
 import React from 'react'
 import { IndexLink } from 'react-router'
-import { Grid, Row, Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Grid, Row, Navbar, Nav, NavItem, Modal, Button } from 'react-bootstrap'
 import { IndexLinkContainer } from 'react-router-bootstrap'
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { showModal: process.env.ENV === 'production' }
+  }
+
+  close() {
+    this.setState({ showModal: false })
+  }
+
   render() {
     return (
       <Grid>
@@ -23,6 +32,19 @@ export default class App extends React.Component {
             </IndexLinkContainer>
           </Nav>
         </Navbar>
+        <Modal show={this.state.showModal}>
+          <Modal.Header>
+            <Modal.Title>Hinweis</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Mit diesem Tool können Sie die Auswirkungen verschiedenster Parameter auf Ihr Immobilieninvestment simulieren.</p>
+            <p>Die zugrundeliegenden Berechnungen erfolgen nach besten Wissen und Gewissen und erheben keinen Anspruch auf Korrektheit und Vollständigkeit.</p>
+            <p>Die Benutzung erfolgt daher auf eigene Gefahr. Eine Investmententscheidung sollte nicht allein auf diesem Tool beruhen.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close.bind(this)}>Ok, Verstanden</Button>
+          </Modal.Footer>
+        </Modal>
         {this.props.children}
       </Grid>
     )
