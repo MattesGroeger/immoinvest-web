@@ -13,6 +13,7 @@ export default function prices(state = initialState, action) {
         incidentalCostsFeature: hasGrossPrice,
         financingFeature: hasGrossPrice,
         developmentFeature: hasGrossPrice,
+        taxFeature: action.baseData.baseRent > 0,
       }
     default:
       return state

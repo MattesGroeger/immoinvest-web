@@ -22,7 +22,7 @@ class TaxForm extends React.Component {
 
     const warningFeatureDisabled = (
       <Alert bsStyle="warning">
-        Bitte tragen Sie zunächst den Brutto-Kaufpreis ein!
+        Steuer-Aspekte können nur bei Mieteinnahmen berücksichtigt werden.
       </Alert>
     )
 
@@ -45,10 +45,10 @@ class TaxForm extends React.Component {
         />
         <Input
           type="checkbox"
-          label="Verheiratet"
+          label="Verheiratet (noch nicht unterstützt)"
           defaultValue={married}
           onChange={(e) => changeBaseData("married", e.target.checked)}
-          disabled={disableFeature}
+          disabled={true}
         />
         <Input label={this.titleWithTooltip("Gehaltsentwicklung/Jahr", "Die Gehaltsentwicklung beeinflusst Ihre zukünftige Steuerlast. Eine Steigerung auf dem Niveau der Inflationsrate wird in der Regel zu einem Netto-Verlust führen, da mit mehr Einkommen auch die Steuerlast steigt.")} wrapperClassName="wrapper">
           <Row>
@@ -85,7 +85,7 @@ TaxForm.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    disableFeature: !state.featureToggle.financingFeature,
+    disableFeature: !state.featureToggle.taxFeature,
     baseData: state.baseData,
   }
 }
