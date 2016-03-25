@@ -10,6 +10,7 @@ import IncidentalCostsForm from './parameters/incidentalCosts'
 import FinancingForm from './parameters/financing'
 import CashflowForm from './parameters/cashflow'
 import DevelopmentForm from './parameters/development'
+import TaxForm from './parameters/tax'
 
 import KPIView from './results/kpi'
 import GraphView from './results/graph'
@@ -37,7 +38,7 @@ export default class Simulation extends React.Component {
               <DevelopmentForm/>
             </Panel>
             <Panel header="Steuern" eventKey="6">
-              <h4>In Arbeit</h4>
+              <TaxForm/>
             </Panel>
           </Accordion>
         </Col>

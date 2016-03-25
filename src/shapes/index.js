@@ -31,6 +31,12 @@ export const BaseData = PropTypes.shape({
   landPortionPercent: PropTypes.number, // Bodenanteil %
   landDevelopmentPercent: PropTypes.number, // Wertentwicklung Boden %
   flatDevelopmentPercent: PropTypes.number, // Wertentwicklung Wohnung %
+
+  // tax – AfA needs baseRent (keine Abschreibung bei Eigennutz)!
+  taxType: PropTypes.string, // Neubau-AfA (2%/50 Jahre), Altbau-AfA (ab 1925: 2%/50 Jahre, vor 1925: 2,5%/40 Jahre), Denkmal-AfA (http://ratgeber.immowelt.de/a/steuern-sparen-mit-immobilien-afa-nutzen.html)
+  married: PropTypes.bool, // Verheiratet
+  taxableYearlyIncome: PropTypes.number, // Zu versteuerndes Jahreseinkommen
+  incomeDevelopmentPercent: PropTypes.number, // Einkommensentwicklung
 })
 
 // calculated
@@ -70,4 +76,11 @@ export const CashflowTableRow = PropTypes.shape({
   revenueYearly: PropTypes.number.isRequired, // Einnahmen pro Jahr
   costYearly: PropTypes.number.isRequired, // Ausgaben pro Jahr
   profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr
+})
+
+export const TaxTableRow = PropTypes.shape({
+  depreciationYearly: PropTypes.number.isRequired, // Abschreibung nach AfA
+  taxableIncomeYearly: PropTypes.number.isRequired, // Einkommen pro Jahr mit Einrechnung der Einkommensentwicklung
+  totalTaxableIncomeYearly: PropTypes.number.isRequired, // Neues zu versteuerndes Jahreseinkommen
+  differenceYearly: PropTypes.number.isRequired, // Unterschied zur normalen Versteuerung ohne Immobilie (Gewinn/Verlust)
 })

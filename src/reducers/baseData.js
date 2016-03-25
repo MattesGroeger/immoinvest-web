@@ -28,6 +28,11 @@ const initialState = {
   landPortionPercent: 0.25,
   landDevelopmentPercent: 0.02,
   flatDevelopmentPercent: -0.02,
+
+  taxType: "oldFrom1925",
+  married: false,
+  taxableYearlyIncome: 50000,
+  incomeDevelopmentPercent: 0.02,
 }
 
 const updateBaseData = (state, action) => {

@@ -29,7 +29,7 @@ class DevelopmentForm extends React.Component {
     return (
       <form>
         {disableFeature ? warningFeatureDisabled : ""}
-        <Input label={this.titleWithTooltip("Anteil Boden", "Bei jedem Erwerb wird in der Regel auch ein Bodenanteil mit gekauft. Dieser Anteil ist wichtig für die Besteuerung sowie die Wertentwicklung.")} wrapperClassName="wrapper">
+        <Input label={this.titleWithTooltip("Bodenwert", "Bei jedem Erwerb wird auch ein Bodenanteil mitgekauft. Dieser Anteil ist wichtig für die Besteuerung sowie die Wertentwicklung. Gemeinden führen Bodenrichtwerttabellen um den Bodenwert ermitteln zu können.")} wrapperClassName="wrapper">
           <Row>
             <Col xs={6}>
               <MultiplyInput

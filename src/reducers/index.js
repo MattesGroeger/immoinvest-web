@@ -4,6 +4,7 @@ import baseData from './baseData'
 import prices from './prices'
 import table from './table'
 import cashflowTable from './cashflowTable'
+import taxTable from './taxTable'
 import featureToggle from './featureToggle'
 
 const appReducer = combineReducers({
@@ -11,6 +12,7 @@ const appReducer = combineReducers({
   prices,
   table,
   cashflowTable,
+  taxTable,
   featureToggle,
 })
 

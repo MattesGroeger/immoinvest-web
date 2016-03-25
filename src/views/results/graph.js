@@ -37,7 +37,7 @@ class BarChart extends React.Component {
 export default class GraphView extends React.Component {
 
   render() {
-    const { table, cashflowTable } = this.props
+    const { table, cashflowTable, taxTable } = this.props
     const chartData = {
             labels: table.map((row) => row.year),
             datasets: [
@@ -80,9 +80,18 @@ export default class GraphView extends React.Component {
               backgroundColor: '#FFA4D7',
               yAxisID: 'y-axis-1'
             }, {
+              label: "Steuern",
+              type:'bar',
+              data: taxTable.map((row) => row.differenceYearly),
+              fill: false,
+              // borderColor: '#F26363',
+              borderWidth: 0,
+              backgroundColor: '#F5DD90',
+              yAxisID: 'y-axis-1'
+            }, {
               type: 'line',
               label: "Gewinn",
-              data: cashflowTable.map((row, i) => row.profitYearly - table[i].totalRate),
+              data: cashflowTable.map((row, i) => row.profitYearly - table[i].totalRate + taxTable[i].differenceYearly),
               radius: 0,
               fill: false,
               borderColor: '#474747',
@@ -184,6 +193,7 @@ function mapStateToProps(state) {
   return {
     table: state.table,
     cashflowTable: state.cashflowTable,
+    taxTable: state.taxTable,
   }
 }
 
