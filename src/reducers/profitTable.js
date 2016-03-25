@@ -2,7 +2,7 @@ import { CALCULATE_PROFIT_TABLE } from '../actions/index'
 
 const initialState = []
 
-function calculateProfitRows(cashflowTable, financingTable, taxTable, totalRows = 0, accumulator = []) {
+function calculateProfitRows(cashflowTable, financingTable, taxTable, equity, totalRows = 0, accumulator = [], gain = 0, loss = 0) {
   if (accumulator.length >= totalRows) { return accumulator }
 
   const currentYear = accumulator.length + 1
@@ -12,17 +12,25 @@ function calculateProfitRows(cashflowTable, financingTable, taxTable, totalRows 
   const financingCostYearly = financingTable[accumulator.length].totalRate
   const taxYearly = taxTable[accumulator.length].differenceYearly
 
+  const profitYearly = revenueYearly - costYearly - financingCostYearly + taxYearly
+  const newGain = gain + (profitYearly > 0 ? profitYearly : 0)
+  const newLoss = loss + (profitYearly < 0 ? profitYearly * -1 : 0)
+  const roi = profitYearly / equity
+
   accumulator.push({
-    profitYearly: revenueYearly - costYearly - financingCostYearly + taxYearly,
+    profitYearly: profitYearly,
+    totalGain: newGain,
+    totalLoss: equity + newLoss,
+    roi: roi,
   })
 
-  return calculateProfitRows(cashflowTable, financingTable, taxTable, totalRows, accumulator)
+  return calculateProfitRows(cashflowTable, financingTable, taxTable, equity, totalRows, accumulator, newGain, newLoss)
 }
 
 export default function table(state = initialState, action) {
   switch (action.type) {
     case CALCULATE_PROFIT_TABLE:
-      return calculateProfitRows(action.cashflowTable, action.financingTable, action.taxTable, action.baseData.investmentPeriod)
+      return calculateProfitRows(action.cashflowTable, action.financingTable, action.taxTable, action.prices.equity, action.baseData.investmentPeriod)
     default:
       return state
   }

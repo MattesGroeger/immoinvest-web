@@ -59,9 +59,9 @@ export const FeatureToggle = PropTypes.shape({
   financingFeature: PropTypes.bool.isRequired,
 })
 
-export const Table = PropTypes.arrayOf(TableRow)
+export const Table = PropTypes.arrayOf(FinancingTableRow)
 
-export const TableRow = PropTypes.shape({
+export const FinancingTableRow = PropTypes.shape({
   year: PropTypes.number.isRequired, // Jahr
 
   // financing

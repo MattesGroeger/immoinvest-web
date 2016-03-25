@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Panel, Table } from 'react-bootstrap'
 
-import { TableRow, CashflowTableRow } from '../../shapes/index'
+import { FinancingTableRow, CashflowTableRow } from '../../shapes/index'
 import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../components/calculatedValue'
 
 class TableViewRow extends React.Component {
   render() {
     const { year, dept, borrowingRate, amortizationRate, totalRate } = this.props.row
     const { revenueYearly, costYearly } = this.props.developmentsRow
-    const { profitYearly } = this.props.profitRow
+    const { profitYearly, roi } = this.props.profitRow
     const { differenceYearly } = this.props.taxRow
     return (
       <tr>
@@ -22,13 +22,14 @@ class TableViewRow extends React.Component {
         <td><CalculatedCurrencyValue value={-costYearly} invert={true}/></td>
         <td><CalculatedCurrencyValue value={differenceYearly}/></td>
         <td><CalculatedCurrencyValue value={profitYearly}/></td>
+        <td><CalculatedPercentValue value={roi}/></td>
       </tr>
     )
   }
 }
 
 TableViewRow.propTypes = {
-  row: TableRow.isRequired,
+  row: FinancingTableRow.isRequired,
   developmentsRow: CashflowTableRow.isRequired,
 }
 
@@ -38,7 +39,7 @@ class TableViewRowEndOfFixedBorrowingRate extends React.Component {
     return (
       <tr>
         <td></td>
-        <td colSpan={8}>Ende der Zinsbindung, neuer Zinsatz: <CalculatedPercentValue value={followUpBorrowingRatePercent}/></td>
+        <td colSpan={9}>Ende der Zinsbindung, neuer Zinsatz: <CalculatedPercentValue value={followUpBorrowingRatePercent}/></td>
       </tr>
     )
   }
@@ -74,6 +75,7 @@ export default class TableView extends React.Component {
               <th>Unterhalt</th>
               <th>Steuern</th>
               <th>Gewinn</th>
+              <th>ROI</th>
             </tr>
           </thead>
           <tbody>
@@ -88,6 +90,7 @@ export default class TableView extends React.Component {
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
             </tr>
           </tbody>
         </Table>
@@ -97,7 +100,7 @@ export default class TableView extends React.Component {
 }
 
 TableView.propTypes = {
-  financingTable: PropTypes.arrayOf(TableRow),
+  financingTable: PropTypes.arrayOf(FinancingTableRow),
   fixedBorrowingRateYears: PropTypes.number.isRequired,
   followUpBorrowingRatePercent: PropTypes.number.isRequired,
 }

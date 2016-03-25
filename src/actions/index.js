@@ -46,10 +46,11 @@ function calculateTaxTable(baseData, prices, financingTable, cashflowTable) {
   }
 }
 
-function calculateProfitTable(baseData, financingTable, cashflowTable, taxTable) {
+function calculateProfitTable(baseData, prices, financingTable, cashflowTable, taxTable) {
   return {
     type: CALCULATE_PROFIT_TABLE,
     baseData: baseData,
+    prices: prices,
     financingTable: financingTable,
     cashflowTable: cashflowTable,
     taxTable: taxTable,
@@ -70,7 +71,7 @@ export function changeBaseData(key, value) {
     dispatch(calculateFinancingTable(getState().baseData, getState().prices))
     dispatch(calculateCashflowTable(getState().baseData))
     dispatch(calculateTaxTable(getState().baseData, getState().prices, getState().financingTable, getState().cashflowTable))
-    dispatch(calculateProfitTable(getState().baseData, getState().financingTable, getState().cashflowTable, getState().taxTable))
+    dispatch(calculateProfitTable(getState().baseData, getState().prices, getState().financingTable, getState().cashflowTable, getState().taxTable))
     dispatch(toggleFeatures(getState().baseData))
   }
 }
