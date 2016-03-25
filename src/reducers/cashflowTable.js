@@ -37,7 +37,6 @@ function calculateCashflowRows(data, totalRows = 0, accumulator = []) {
   accumulator.push({
     revenueYearly: revenueYearly,
     costYearly: costYearly,
-    profitYearly: revenueYearly - costYearly,
   })
 
   return calculateCashflowRows(data, totalRows, accumulator)

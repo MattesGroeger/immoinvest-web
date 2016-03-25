@@ -28,13 +28,11 @@ describe('Reducer', function() {
     expect(result).to.deep.equal([
       {
         revenueYearly: 4181.999999999999,
-        costYearly: 1553.46,
-        profitYearly: 2628.539999999999,
+        costYearly: 1553.46
       },
       {
         revenueYearly: 4286.549999999999,
-        costYearly: 1584.5292,
-        profitYearly: 2702.0207999999993
+        costYearly: 1584.5292
       }
     ])
   });
@@ -61,12 +59,10 @@ describe('Reducer', function() {
       {
         revenueYearly: 2459.9999999999995,
         costYearly: 1553.46,
-        profitYearly: 906.5399999999995,
       },
       {
         revenueYearly: 2521.4999999999995,
         costYearly: 1584.5292,
-        profitYearly: 936.9707999999996
       }
     ])
   });
@@ -92,7 +88,6 @@ describe('Reducer', function() {
       {
         revenueYearly: 0,
         costYearly: 3065.1000000000004,
-        profitYearly: -3065.1000000000004,
       }
     ])
   });
@@ -118,7 +113,6 @@ describe('Reducer', function() {
       {
         revenueYearly: 4181.999999999999,
         costYearly: 739.5,
-        profitYearly: 3442.499999999999,
       }
     ])
   });
@@ -143,7 +137,6 @@ describe('Reducer', function() {
       {
         revenueYearly: 4181.999999999999,
         costYearly: 0,
-        profitYearly: 4181.999999999999,
       }
     ])
   });

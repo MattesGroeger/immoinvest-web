@@ -75,7 +75,6 @@ export const TableRow = PropTypes.shape({
 export const CashflowTableRow = PropTypes.shape({
   revenueYearly: PropTypes.number.isRequired, // Einnahmen pro Jahr
   costYearly: PropTypes.number.isRequired, // Ausgaben pro Jahr
-  profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr
 })
 
 export const TaxTableRow = PropTypes.shape({
@@ -83,4 +82,8 @@ export const TaxTableRow = PropTypes.shape({
   taxableIncomeYearly: PropTypes.number.isRequired, // Einkommen pro Jahr mit Einrechnung der Einkommensentwicklung
   totalTaxableIncomeYearly: PropTypes.number.isRequired, // Neues zu versteuerndes Jahreseinkommen
   differenceYearly: PropTypes.number.isRequired, // Unterschied zur normalen Versteuerung ohne Immobilie (Gewinn/Verlust)
+})
+
+export const ProfitTableRow = PropTypes.shape({
+  profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr
 })
