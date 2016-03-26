@@ -4,6 +4,25 @@ import { CALCULATE_FINANCING_TABLE } from '../actions/index'
 
 const initialState = calculateTable(0)
 
+function calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent) {
+  return loan * borrowingRatePercent + loan * amortizationRatePercent
+}
+
+function calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent) {
+  function calculateDept(dept, currentYear, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment) {
+    if (currentYear >= fixedBorrowingRateYears) {
+      return dept
+    } else {
+      const borrowingRate = dept * borrowingRatePercent
+      const amortizationRateTemp = yearlyRate - borrowingRate + specialYearlyPayment
+      const amortizationRate = dept < amortizationRateTemp ? dept : amortizationRateTemp
+      return calculateDept(dept - amortizationRate, currentYear + 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
+    }
+  }
+  const deptAfterYears = calculateDept(loan, 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
+  return deptAfterYears * followUpBorrowingRatePercent + deptAfterYears * amortizationRatePercent
+}
+
 function calculateTable(years, loan = 0, yearlyRate = 0, yearlyFollowUpRate = 0, fixedBorrowingRateYears = 0, borrowingRatePercent = 0, followUpBorrowingRatePercent = 0, specialYearlyPayment = 0) {
   let rows = Array.from(new Array(years), () => 0)
 
@@ -49,8 +68,10 @@ function deptAfterYears(dept, years, yearlyRate, borrowingRatePercent, specialYe
 export default function prices(state = initialState, action) {
   switch (action.type) {
     case CALCULATE_FINANCING_TABLE:
-      const { fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment, investmentPeriod } = action.baseData
-      const { loan, yearlyRate, yearlyFollowUpRate } = action.prices
+      const { fixedBorrowingRateYears, borrowingRatePercent, amortizationRatePercent, followUpBorrowingRatePercent, specialYearlyPayment, investmentPeriod } = action.baseData
+      const { loan } = action.prices
+      const yearlyRate = calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent)
+      const yearlyFollowUpRate = calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent)
       return calculateTable(investmentPeriod, loan || 0, yearlyRate || 0, yearlyFollowUpRate || 0, fixedBorrowingRateYears, borrowingRatePercent, followUpBorrowingRatePercent, specialYearlyPayment)
     default:
       return state

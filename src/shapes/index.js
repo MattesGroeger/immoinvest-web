@@ -49,8 +49,6 @@ export const Prices = PropTypes.shape({
   totalPrice: PropTypes.number, // Netto Kaufpreis
   equity: PropTypes.number, // Eigenkapital
   loan: PropTypes.number, // Darlehen
-  yearlyRate: PropTypes.number, // Jahresrate
-  yearlyFollowUpRate: PropTypes.number, // Jahresrate nach Ende Zinsbindung
   specialYearlyPaymentPercent: PropTypes.number, // Jährliche Sondertilgungsrate
 })
 

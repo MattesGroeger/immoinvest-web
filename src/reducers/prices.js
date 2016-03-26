@@ -43,29 +43,8 @@ function calculateEquity(grossPrice, equityPercent, incidentalCosts) {
   return (grossPrice * equityPercent) + incidentalCosts
 }
 
-function calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent) {
-  return loan * borrowingRatePercent + loan * amortizationRatePercent
-}
-
 function calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment) {
   return loan > 0 ? specialYearlyPayment / loan : 0
-}
-
-
-
-function calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent) {
-  function calculateDept(dept, currentYear, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment) {
-    if (currentYear >= fixedBorrowingRateYears) {
-      return dept
-    } else {
-      const borrowingRate = dept * borrowingRatePercent
-      const amortizationRateTemp = yearlyRate - borrowingRate + specialYearlyPayment
-      const amortizationRate = dept < amortizationRateTemp ? dept : amortizationRateTemp
-      return calculateDept(dept - amortizationRate, currentYear + 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
-    }
-  }
-  const deptAfterYears = calculateDept(loan, 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
-  return deptAfterYears * followUpBorrowingRatePercent + deptAfterYears * amortizationRatePercent
 }
 
 export default function prices(state = initialState, action) {
@@ -91,7 +70,6 @@ export default function prices(state = initialState, action) {
       const totalPrice = grossPrice + incidentalCosts
       const equity = calculateEquity(grossPrice, equityPercent, incidentalCosts)
       const loan = totalPrice - equity
-      const yearlyRate = calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent)
       return {
         rentPerSquareMeter: calculateRentPerSquareMeter(baseRent, squareMeters),
         netPricePerSquareMeter: calculatePricePerSquareMeter(squareMeters, totalPrice),
@@ -101,8 +79,6 @@ export default function prices(state = initialState, action) {
         purchasingPriceFactor: calculatePurchasingPriceFactor(baseRent, grossPrice),
         equity: equity,
         loan: loan,
-        yearlyRate: yearlyRate,
-        yearlyFollowUpRate: calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent),
         specialYearlyPaymentPercent: calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment),
       }
     default:
