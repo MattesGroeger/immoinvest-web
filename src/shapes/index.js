@@ -49,8 +49,8 @@ export const Prices = PropTypes.shape({
   totalPrice: PropTypes.number, // Netto Kaufpreis
   equity: PropTypes.number, // Eigenkapital
   loan: PropTypes.number, // Darlehen
-  monthlyRate: PropTypes.number, // Monatsrate
-  monthlyFollowUpRate: PropTypes.number, // Monatsrate nach Ende Zinsbindung
+  yearlyRate: PropTypes.number, // Jahresrate
+  yearlyFollowUpRate: PropTypes.number, // Jahresrate nach Ende Zinsbindung
   specialYearlyPaymentPercent: PropTypes.number, // Jährliche Sondertilgungsrate
 })
 
@@ -62,9 +62,6 @@ export const FeatureToggle = PropTypes.shape({
 export const Table = PropTypes.arrayOf(FinancingTableRow)
 
 export const FinancingTableRow = PropTypes.shape({
-  year: PropTypes.number.isRequired, // Jahr
-
-  // financing
   dept: PropTypes.number.isRequired, // Schuldenstand
   borrowingRate: PropTypes.number.isRequired, // Rate Zinsen
   amortizationRate: PropTypes.number.isRequired, // Rate Tilgung

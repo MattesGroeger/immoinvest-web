@@ -11,7 +11,7 @@ const initialState = {
   purchasingPriceFactor: 0,
   equity: 0,
   loan: 0,
-  monthlyRate: 0,
+  yearlyRate: 0,
   specialYearlyPaymentPercent: 0,
 }
 
@@ -43,7 +43,7 @@ function calculateEquity(grossPrice, equityPercent, incidentalCosts) {
   return (grossPrice * equityPercent) + incidentalCosts
 }
 
-function calculateMonthlyRate(loan, borrowingRatePercent, amortizationRatePercent) {
+function calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent) {
   return loan * borrowingRatePercent + loan * amortizationRatePercent
 }
 
@@ -53,18 +53,18 @@ function calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment) {
 
 
 
-function calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent) {
-  function calculateDept(dept, currentYear, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment) {
+function calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent) {
+  function calculateDept(dept, currentYear, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment) {
     if (currentYear >= fixedBorrowingRateYears) {
       return dept
     } else {
       const borrowingRate = dept * borrowingRatePercent
-      const amortizationRateTemp = monthlyRate - borrowingRate + specialYearlyPayment
+      const amortizationRateTemp = yearlyRate - borrowingRate + specialYearlyPayment
       const amortizationRate = dept < amortizationRateTemp ? dept : amortizationRateTemp
-      return calculateDept(dept - amortizationRate, currentYear + 1, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment)
+      return calculateDept(dept - amortizationRate, currentYear + 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
     }
   }
-  const deptAfterYears = calculateDept(loan, 1, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, specialYearlyPayment)
+  const deptAfterYears = calculateDept(loan, 1, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, specialYearlyPayment)
   return deptAfterYears * followUpBorrowingRatePercent + deptAfterYears * amortizationRatePercent
 }
 
@@ -91,7 +91,7 @@ export default function prices(state = initialState, action) {
       const totalPrice = grossPrice + incidentalCosts
       const equity = calculateEquity(grossPrice, equityPercent, incidentalCosts)
       const loan = totalPrice - equity
-      const monthlyRate = calculateMonthlyRate(loan, borrowingRatePercent, amortizationRatePercent)
+      const yearlyRate = calculateYearlyRate(loan, borrowingRatePercent, amortizationRatePercent)
       return {
         rentPerSquareMeter: calculateRentPerSquareMeter(baseRent, squareMeters),
         netPricePerSquareMeter: calculatePricePerSquareMeter(squareMeters, totalPrice),
@@ -101,8 +101,8 @@ export default function prices(state = initialState, action) {
         purchasingPriceFactor: calculatePurchasingPriceFactor(baseRent, grossPrice),
         equity: equity,
         loan: loan,
-        monthlyRate: monthlyRate,
-        monthlyFollowUpRate: calculateMonthlyFollowUpRate(loan, fixedBorrowingRateYears, monthlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent),
+        yearlyRate: yearlyRate,
+        yearlyFollowUpRate: calculateYearlyFollowUpRate(loan, fixedBorrowingRateYears, yearlyRate, borrowingRatePercent, amortizationRatePercent, specialYearlyPayment, followUpBorrowingRatePercent),
         specialYearlyPaymentPercent: calculateSpecialYearlyPaymentPercent(loan, specialYearlyPayment),
       }
     default:

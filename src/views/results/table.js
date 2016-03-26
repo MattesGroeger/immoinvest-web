@@ -7,13 +7,13 @@ import { CalculatedCurrencyValue, CalculatedPercentValue } from '../../component
 
 class TableViewRow extends React.Component {
   render() {
-    const { year, dept, borrowingRate, amortizationRate, totalRate } = this.props.row
+    const { dept, borrowingRate, amortizationRate, totalRate } = this.props.row
     const { revenueYearly, costYearly } = this.props.developmentsRow
     const { profitYearly, roi } = this.props.profitRow
     const { differenceYearly } = this.props.taxRow
     return (
       <tr>
-        <td>{year}</td>
+        <td>{this.props.year}</td>
         <td><CalculatedCurrencyValue value={dept} invert={true}/></td>
         <td><CalculatedCurrencyValue value={-borrowingRate} invert={true}/></td>
         <td><CalculatedCurrencyValue value={-amortizationRate}/></td>
@@ -53,7 +53,7 @@ export default class TableView extends React.Component {
 
   render() {
     const { financingTable, cashflowTable, taxTable, profitTable } = this.props
-    var rows = financingTable.map((row, i) => <TableViewRow row={row} developmentsRow={cashflowTable[i]} taxRow={taxTable[i]} profitRow={profitTable[i]} key={i}/>)
+    var rows = financingTable.map((row, i) => <TableViewRow row={row} developmentsRow={cashflowTable[i]} taxRow={taxTable[i]} profitRow={profitTable[i]} year={i+1} key={i}/>)
 
     const { fixedBorrowingRateYears, followUpBorrowingRatePercent, borrowingRateTotalCost, amortizationRateTotalCost } = this.props
     if (fixedBorrowingRateYears > 0) {

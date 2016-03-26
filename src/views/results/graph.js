@@ -39,7 +39,7 @@ export default class GraphView extends React.Component {
   render() {
     const { financingTable, cashflowTable, taxTable, profitTable } = this.props
     const chartData = {
-            labels: financingTable.map((row) => row.year),
+            labels: financingTable.map((row, i) => i + 1),
             datasets: [
             {
               label: "Einnahmen",

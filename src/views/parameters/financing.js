@@ -109,7 +109,7 @@ class FinancingForm extends React.Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" disabled={disableFeature} multiplier={100} max={10}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={amortizationRatePercent} property="amortizationRatePercent" disabled={disableFeature} multiplier={100} min={1} max={10}/>
             </Col>
           </Row>
         </Input>
