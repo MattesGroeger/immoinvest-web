@@ -47,6 +47,7 @@ exports.plugins = {
       BROWSER: JSON.stringify(true),
       // Useful to reduce the size of client-side libraries, e.g. react
       ENV: JSON.stringify(process.env.ENV),
+      GA_TRACKING_ID: JSON.stringify(process.env.GA_TRACKING_ID),
       NODE_ENV: JSON.stringify(process.env.ENV),
     }
   })
