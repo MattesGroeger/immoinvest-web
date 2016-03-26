@@ -57,7 +57,7 @@ class BaseDataForm extends React.Component {
           </Row>
           <Row>
             <Col xs={12}>
-              <RangeUserInput changeBaseData={changeBaseData} value={investmentPeriod} property="investmentPeriod" min={1} max={60} round={true}/>
+              <RangeUserInput changeBaseData={changeBaseData} value={investmentPeriod} property="investmentPeriod" min={10} max={60} round={true}/>
             </Col>
           </Row>
         </Input>

@@ -84,6 +84,12 @@ export const TaxTableRow = PropTypes.shape({
   differenceYearly: PropTypes.number.isRequired, // Unterschied zur normalen Versteuerung ohne Immobilie (Gewinn/Verlust)
 })
 
+export const DevelopmentTableRow = PropTypes.shape({
+  landValue: PropTypes.number.isRequired, // Wert Grundstück
+  flatValue: PropTypes.number.isRequired, // Wert Wohnung
+  totalValue: PropTypes.number.isRequired, // Wert Gesamt
+})
+
 export const ProfitTableRow = PropTypes.shape({
   profitYearly: PropTypes.number.isRequired, // Gewinn pro Jahr
 })

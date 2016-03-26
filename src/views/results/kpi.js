@@ -8,7 +8,7 @@ import { CalculatedFactorValue, CalculatedCurrencyValue, CalculatedPercentValue 
 export default class KPIView extends React.Component {
 
   render() {
-    const { investmentPeriod, purchasingPriceFactor, incidentalCosts, incidentalCostsPercent, netPricePerSquareMeter, rentPerSquareMeter, equity, loan, totalInvestment } = this.props
+    const { investmentPeriod, purchasingPriceFactor, incidentalCosts, incidentalCostsPercent, netPricePerSquareMeter, rentPerSquareMeter, equity, loan, totalValue, totalInvestment } = this.props
 
     return (
       <Panel header="Schlüsselwerte">
@@ -35,8 +35,8 @@ export default class KPIView extends React.Component {
               <td><strong><CalculatedCurrencyValue value={loan} invert={true}/></strong></td>
             </tr>
             <tr>
-              <td></td>
-              <td></td>
+              <td>Wert nach {investmentPeriod} J.</td>
+              <td><strong><CalculatedCurrencyValue value={totalValue}/></strong></td>
               <td>Bilanz nach {investmentPeriod} J. (ohne VK)</td>
               <td><strong><CalculatedCurrencyValue value={totalInvestment}/></strong></td>
             </tr>
@@ -57,6 +57,7 @@ function mapStateToProps(state) {
     rentPerSquareMeter: state.prices.rentPerSquareMeter,
     equity: state.prices.equity,
     loan: state.prices.loan,
+    totalValue: state.developmentTable.length > 0 ? state.developmentTable[state.developmentTable.length-1].totalValue : 0,
     totalInvestment: state.profitTable.length > 0 ? state.profitTable[state.profitTable.length-1].totalGain - state.profitTable[state.profitTable.length-1].totalLoss : 0,
   }
 }

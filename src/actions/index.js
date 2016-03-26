@@ -3,6 +3,7 @@ export const CALCULATE_PRICES = 'CALCULATE_PRICES'
 export const CALCULATE_FINANCING_TABLE = 'CALCULATE_FINANCING_TABLE'
 export const CALCULATE_CASHFLOW_TABLE = 'CALCULATE_CASHFLOW_TABLE'
 export const CALCULATE_TAX_TABLE = 'CALCULATE_TAX_TABLE'
+export const CALCULATE_DEVELOPMENT_TABLE = 'CALCULATE_DEVELOPMENT_TABLE'
 export const CALCULATE_PROFIT_TABLE = 'CALCULATE_PROFIT_TABLE'
 export const TOGGLE_FEATURES = 'TOGGLE_FEATURES'
 
@@ -46,6 +47,13 @@ function calculateTaxTable(baseData, prices, financingTable, cashflowTable) {
   }
 }
 
+function calculateDevelopmentTable(baseData) {
+  return {
+    type: CALCULATE_DEVELOPMENT_TABLE,
+    baseData: baseData,
+  }
+}
+
 function calculateProfitTable(baseData, prices, financingTable, cashflowTable, taxTable) {
   return {
     type: CALCULATE_PROFIT_TABLE,
@@ -71,6 +79,7 @@ export function changeBaseData(key, value) {
     dispatch(calculateFinancingTable(getState().baseData, getState().prices))
     dispatch(calculateCashflowTable(getState().baseData))
     dispatch(calculateTaxTable(getState().baseData, getState().prices, getState().financingTable, getState().cashflowTable))
+    dispatch(calculateDevelopmentTable(getState().baseData))
     dispatch(calculateProfitTable(getState().baseData, getState().prices, getState().financingTable, getState().cashflowTable, getState().taxTable))
     dispatch(toggleFeatures(getState().baseData))
   }
