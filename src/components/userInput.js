@@ -171,5 +171,5 @@ export class RangeUserInput extends UserInput {
   }
 }
 
-RangeUserInput.propTypes = { min: PropTypes.number, max: PropTypes.number, multiplier: PropTypes.number, round: PropTypes.boolean }
+RangeUserInput.propTypes = { min: PropTypes.number, max: PropTypes.number, multiplier: PropTypes.number, round: PropTypes.bool }
 RangeUserInput.defaultProps = { min: 0, max: 100, multiplier: 1, round: false }

@@ -1,4 +1,5 @@
 import React from 'react'
+import ga from 'react-ga'
 import { IndexLink } from 'react-router'
 import { Grid, Row, Navbar, Nav, NavItem, Modal, Button } from 'react-bootstrap'
 import { IndexLinkContainer } from 'react-router-bootstrap'
@@ -6,6 +7,7 @@ import { IndexLinkContainer } from 'react-router-bootstrap'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
+    ga.modalview('/disclaimer')
     this.state = { showModal: process.env.ENV === 'production' }
   }
 

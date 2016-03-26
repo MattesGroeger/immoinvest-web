@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
 import baseData from './baseData'
 import prices from './prices'
@@ -18,6 +19,7 @@ const appReducer = combineReducers({
   developmentTable,
   profitTable,
   featureToggle,
+  routing: routerReducer,
 })
 
 export default appReducer
