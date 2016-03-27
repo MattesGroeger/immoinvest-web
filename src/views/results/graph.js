@@ -71,6 +71,16 @@ export default class GraphView extends React.Component {
               backgroundColor: '#DBA4FF',
               yAxisID: 'y-axis-1'
             }, {
+              label: "Sondertilgung",
+              type:'bar',
+              data: financingTable.map((row) => -row.specialYearlyPayment),
+              pointBorderWidth: 0,
+              fill: false,
+              // borderColor: '#FCE88B',
+              borderWidth: 0,
+              backgroundColor: '#C990D4',
+              yAxisID: 'y-axis-1'
+            }, {
               label: "Unterhalt",
               type:'bar',
               data: cashflowTable.map((row) => -row.costYearly),
