@@ -38,14 +38,15 @@ function calculateFinancingPeriod(dept, periodInYears, borrowingRatePercent, amo
     const borrowingRate = monthlyRates.reduce((prev, current) => prev + current.borrowingRate, 0)
     const amortizationRate = monthlyRates.reduce((prev, current) => prev + current.amortizationRate, 0)
     const totalRate = yearlyRate + specialYearlyPayment
+    const specialYearlyPayment2 = Math.min(specialYearlyPayment, remainingDept - amortizationRate)
     prev.push({
       dept: remainingDept,
       months: monthlyRates,
       borrowingRate: roundCurrency(borrowingRate),
       amortizationRate: roundCurrency(amortizationRate),
-      specialYearlyPayment: specialYearlyPayment,
-      totalRate: remainingDept > amortizationRate ? roundCurrency(totalRate) : borrowingRate + amortizationRate + specialYearlyPayment,
-      remainingDept: roundCurrency(remainingDept - amortizationRate - specialYearlyPayment),
+      specialYearlyPayment: specialYearlyPayment2,
+      totalRate: remainingDept > amortizationRate ? roundCurrency(totalRate) : borrowingRate + amortizationRate + specialYearlyPayment2,
+      remainingDept: roundCurrency(remainingDept - amortizationRate - specialYearlyPayment2),
     })
     return prev
   }, [])

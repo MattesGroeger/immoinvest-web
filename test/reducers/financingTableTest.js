@@ -147,9 +147,6 @@ describe('Reducer', function() {
     ])
   });
 
-  // test special yearly payment
-  // test financing ends before end of investment (0-values)
-
   it('should finish financing within investment period', function () {
     const baseData = {
       investmentPeriod: 10,
@@ -191,6 +188,88 @@ describe('Reducer', function() {
         amortizationRate: 0,
         specialYearlyPayment: 0,
         totalRate: 0,
+        remainingDept: 0,
+      })
+  });
+
+  it('should stop specialYearlyPayments when loan is payed of', function () {
+    const baseData = {
+      investmentPeriod: 1,
+      fixedBorrowingRateYears: 1,
+      borrowingRatePercent: 0.02,
+      amortizationRatePercent: 0.2,
+      followUpBorrowingRatePercent: 0.02,
+      specialYearlyPayment: 90000,
+    }
+
+    const prices = {
+      loan: 100000
+    }
+
+    const result = reducer(undefined, {
+      type: CALCULATE_FINANCING_TABLE,
+      baseData: baseData,
+      prices: prices,
+    })
+
+    result.map((e) => console.log(e))
+    expect(result).to.have.lengthOf(1)
+    expect(result[0]).to.deep.equal({
+        dept: 100000,
+        months: [
+          { amortizationRate: 1666.66,
+            borrowingRate: 166.67,
+            remainingDept: 98333.34,
+            totalRate: 1833.33 },
+          { borrowingRate: 163.89,
+            amortizationRate: 1669.44,
+            totalRate: 1833.33,
+            remainingDept: 96663.9 },
+          { borrowingRate: 161.11,
+            amortizationRate: 1672.22,
+            totalRate: 1833.33,
+            remainingDept: 94991.68 },
+          { borrowingRate: 158.32,
+            amortizationRate: 1675.01,
+            totalRate: 1833.33,
+            remainingDept: 93316.67 },
+          { borrowingRate: 155.53,
+            amortizationRate: 1677.8,
+            totalRate: 1833.33,
+            remainingDept: 91638.87 },
+          { borrowingRate: 152.73,
+            amortizationRate: 1680.6,
+            totalRate: 1833.33,
+            remainingDept: 89958.27 },
+          { borrowingRate: 149.93,
+            amortizationRate: 1683.4,
+            totalRate: 1833.33,
+            remainingDept: 88274.87 },
+          { borrowingRate: 147.12,
+            amortizationRate: 1686.21,
+            totalRate: 1833.33,
+            remainingDept: 86588.66 },
+          { borrowingRate: 144.31,
+            amortizationRate: 1689.02,
+            totalRate: 1833.33,
+            remainingDept: 84899.64 },
+          { borrowingRate: 141.5,
+            amortizationRate: 1691.83,
+            totalRate: 1833.33,
+            remainingDept: 83207.81 },
+          { borrowingRate: 138.68,
+            amortizationRate: 1694.65,
+            totalRate: 1833.33,
+            remainingDept: 81513.16 },
+          { borrowingRate: 135.86,
+            amortizationRate: 1697.47,
+            totalRate: 1833.33,
+            remainingDept: 79815.69 },
+        ],
+        borrowingRate: 1815.65,
+        amortizationRate: 20184.31,
+        specialYearlyPayment: 79815.69,
+        totalRate: 112000,
         remainingDept: 0,
       })
   });
